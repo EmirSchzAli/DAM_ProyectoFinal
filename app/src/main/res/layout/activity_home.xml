@@ -65,6 +65,7 @@
         android:layout_gravity="start"
         android:scrollbarSize="0dp"
         android:scrollbars="none"
+        android:colorControlHighlight="@android:color/transparent"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu"/>
 
