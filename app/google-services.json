@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "975176560961",
+    "project_id": "dap-asistenciasuat",
+    "storage_bucket": "dap-asistenciasuat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975176560961:android:d636dcd327814f984bb1c0",
+        "android_client_info": {
+          "package_name": "com.ali.dc.asistencias_uat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975176560961-ojvircve37iq0bg3lrv0phcme7anh90c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ali.dc.asistencias_uat",
+            "certificate_hash": "17229e9b3131aa88251b44861f4b833419ca38a9"
+          }
+        },
+        {
+          "client_id": "975176560961-t9835p2avfehk0afe38q8cur31uemgi6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoPEC9jIlOQFnqlaIblo2LrZtBiu0sC_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975176560961-t9835p2avfehk0afe38q8cur31uemgi6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

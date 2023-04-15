@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registrar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Vistas.Pantallas.Login">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="appBarTransition"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:transitionName="toolBarTransition"
+            app:title="Registrar"></com.google.android.material.appbar.MaterialToolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView2"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:transitionName="cardTransition">
+
+                <LinearLayout
+                    android:id="@+id/loginLyt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="30dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="30dp"
+                    android:transitionName="loginLayoutTransition">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cardTitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:text="Registrate con tu correo electronico"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:transitionName="cardTitleTransition" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etMailLyt2"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="30dp"
+                        android:hint="Correo electronico"
+                        android:transitionName="emailInputTransition"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/twotone_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etMail2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etPasswordLyt2"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="30dp"
+                        android:hint="Contraseña"
+                        android:transitionName="passwordInputTransition"
+                        app:errorEnabled="true"
+                        app:endIconMode="password_toggle"
+                        app:startIconDrawable="@drawable/twotone_password"
+                        app:endIconDrawable="@drawable/twotone_eye">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPassword2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSignUp2"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="30dp"
+                        android:text="Crear cuenta"
+                        android:transitionName="buttonLoginTransition" />
+
+                    <LinearLayout
+                        android:id="@+id/secOptionLyt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:transitionName="secondOptionTransition">
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="0"
+                            android:text="ó"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                        <View
+                            android:id="@+id/divider2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="?android:attr/listDivider" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGoogleSignUp2"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Registrate con Google"
+                        android:transitionName="buttonLoginGoogleTransition"
+                        app:icon="@drawable/google"
+                        app:iconPadding="10dp" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Asistencias UAT</string>
+
+    <string name="signin_layout_text">Esta sección de la aplicación es especialmente para administradores, si usted desea ser un administrator más, consulte con el personal de usuarios.</string>
+
+    <string name="invalid_mail">Ingrese un correo electronico valido</string>
+    <string name="invalid_password">Ingrese una contraseña mayor a 8 digitos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_nav">Abrir menú principal</string>
+    <string name="close_nav">Cerrar menú principal</string>
+
+</resources>
