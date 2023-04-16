@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.Vistas.Pantallas.MenuFragments.Asistencias;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.MenuFragments.Home;
 import com.ali.dc.asistencias_uat.Vistas.Utilerias.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -23,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 public class Inicio extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    public static MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.nav_drawer_layout);
 
-        MaterialToolbar toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
+        toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -41,8 +43,9 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.framentContainer, new Home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
             navView.setCheckedItem(R.id.nav_home);
         }
     }
@@ -51,8 +54,13 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.framentContainer, new Home()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
                 break;
+
+            case R.id.nav_asistencia:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Asistencias()).commit();
+                break;
+
             case R.id.nav_signout:
                 MetodosFirebase.signOut(this);
                 break;

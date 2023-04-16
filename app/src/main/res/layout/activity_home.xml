@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:transitionName="toolBarTransition"
-            app:popupTheme="@style/ThemeOverlay.Material3.Light"
-            app:title="Inicio"></com.google.android.material.appbar.MaterialToolbar>
+            app:popupTheme="@style/ThemeOverlay.Material3.Light">
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -39,7 +40,7 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/framentContainer"
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

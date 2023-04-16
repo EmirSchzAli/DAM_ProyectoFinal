@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/outline_home"
+            android:title="Inicio"/>
+
+        <item
+            android:id="@+id/nav_asistencia"
+            android:icon="@drawable/outline_checklist"
+            android:title="Registrar Asistencia"/>
+
+    </group>
+
+    <item android:title="Control">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_users"
+                android:icon="@drawable/outline_school"
+                android:title="Usuarios"/>
+
+            <item
+                android:id="@+id/nav_classrooms"
+                android:icon="@drawable/outline_meeting_room"
+                android:title="Salones"/>
+            <item
+                android:id="@+id/nav_admins"
+                android:icon="@drawable/outline_manage_accounts"
+                android:title="Administradores"/>
+
+        </menu>
+
+    </item>
+
+    <item android:title="General">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/outline_info"
+                android:title="Acerca de"/>
+
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/outline_settings"
+                android:title="Preferencias"/>
+
+            <item></item>
+
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/outline_sign_out"
+                android:title="Cerrar Sesión"/>
+
+        </menu>
+
+    </item>
+
+</menu>

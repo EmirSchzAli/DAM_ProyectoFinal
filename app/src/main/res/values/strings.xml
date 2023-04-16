@@ -10,4 +10,13 @@
     <string name="open_nav">Abrir menú principal</string>
     <string name="close_nav">Cerrar menú principal</string>
 
+    <string name="fragment_home_label">Inicio</string>
+    <string name="fragment_asistencias_label">Asistencias</string>
+    <string name="fragment_add_classroom_label">Agregar Salón</string>
+    <string name="fragment_admin_classroom_label">Administrar Salones</string>
+    <string name="fragment_add_user_label">Agregar Usuario</string>
+    <string name="fragment_admin_user_label">Administrar Usuarios</string>
+    <string name="fragment_add_admin_label">Agregar Administrador</string>
+    <string name="fragment_admin_admin_label">Administrar Administradores</string>
+
 </resources>
