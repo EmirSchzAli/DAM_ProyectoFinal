@@ -28,7 +28,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.nav_drawer_layout);
 
         MaterialToolbar toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
