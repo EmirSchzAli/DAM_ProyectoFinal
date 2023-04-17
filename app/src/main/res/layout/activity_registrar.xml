@@ -75,6 +75,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="30dp"
                         android:hint="Correo electronico"
+                        app:helperText="Ejemplo: alumno@admin.com"
                         android:transitionName="emailInputTransition"
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/outline_mail">
@@ -93,16 +94,21 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="30dp"
                         android:hint="Contraseña"
+                        app:helperText="@string/password_suggestions"
                         android:transitionName="passwordInputTransition"
                         app:errorEnabled="true"
                         app:endIconMode="password_toggle"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="8"
                         app:startIconDrawable="@drawable/outline_password">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPassword2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:maxLength="8"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton

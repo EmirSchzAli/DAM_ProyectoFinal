@@ -19,4 +19,9 @@
     <string name="fragment_add_admin_label">Agregar Administrador</string>
     <string name="fragment_admin_admin_label">Administrar Administradores</string>
 
+    <string name="password_suggestions">Incluye caracteres como:
+        \n* Especiales: @,?,$,#,%,ñ
+        \n* Números: 0-9
+        \n* Mayúsculas y minúculas: A-Z ó a-z</string>
+
 </resources>

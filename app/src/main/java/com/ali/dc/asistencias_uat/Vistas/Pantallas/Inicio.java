@@ -8,9 +8,14 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
@@ -19,6 +24,7 @@ import com.ali.dc.asistencias_uat.Vistas.Pantallas.MenuFragments.Home;
 import com.ali.dc.asistencias_uat.Vistas.Utilerias.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 public class Inicio extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,12 +68,31 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
 
             case R.id.nav_signout:
-                MetodosFirebase.signOut(this);
+                signOutDialog();
                 break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void signOutDialog() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setIcon(R.drawable.outline_sign_out)
+                .setTitle("Aviso")
+                .setMessage("¿Seguro deseas cerrar sesión?")
+                .setPositiveButton("Cerrar sesión", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MetodosFirebase.signOut(Inicio.this);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+        builder.create();
+        builder.show();
     }
 
     @Override

@@ -30,6 +30,8 @@
 
         <!-- enable window content transitions -->
         <item name="android:windowActivityTransitions">true</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
     </style>
 
     <style name="Theme.DAM_ProyectoFinal" parent="Base.Theme.DAM_ProyectoFinal" />
@@ -84,9 +86,15 @@
         <item name="android:textColor">@color/md_theme_light_secondary</item>
     </style>
 
-    <style name="nav_menu_items_color" parent="Widget.Material3.NavigationView">
-        <item name="itemIconTint">@color/md_theme_light_secondary</item>
-        <item name="itemTextColor">@color/md_theme_dark_onSecondary</item>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
+        <item name="tint">@color/md_theme_light_onPrimaryContainer</item>
+    </style>
+
+    <style name="Widget.App.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="itemIconTint">@color/navigation_item_color</item>
+        <item name="itemTextColor">@color/navigation_item_color</item>
+        <item name="itemShapeFillColor">@color/navigation_item_background_color</item>
     </style>
 
 </resources>
