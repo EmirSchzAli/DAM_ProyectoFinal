@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DAM_ProyectoFinal"
         tools:targetApi="31">
         <activity
+            android:name=".Vistas.Pantallas.CompletarDatos"
+            android:exported="false" />
+        <activity
             android:name=".Ajustes"
             android:exported="false" />
         <activity

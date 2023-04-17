@@ -65,9 +65,6 @@ public class Login extends AppCompatActivity {
         fab_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Rellenar los campos", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.fab_registrar)
-                        .show();*/
                 goToSigninPage();
             }
         });

@@ -11,10 +11,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.DatosUsuario;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Asistencias;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Home;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -27,30 +29,36 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     private DrawerLayout drawerLayout;
     public static MaterialToolbar toolbar;
     public static WindowInsetsControllerCompat windowInsetsController;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        user = MetodosFirebase.firebaseAuth.getCurrentUser();
         setContentView(R.layout.tool_nav_drawer_layout);
-        toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
-        setSupportActionBar(toolbar);
-        setTitle(user.getDisplayName());
+        FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
+        String userName = user.getDisplayName();
+        Log.d("Firebase name ====>", ""+userName);
+        if (userName.equals("")) {
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        NavigationView navView = findViewById(R.id.navView);
+        } else {
+
+            toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
+            setSupportActionBar(toolbar);
+            setTitle(user.getDisplayName());
+
+            drawerLayout = findViewById(R.id.drawerLayout);
+            NavigationView navView = findViewById(R.id.navView);
 
 
-        navView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+            navView.setNavigationItemSelectedListener(this);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.syncState();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
-            navView.setCheckedItem(R.id.nav_home);
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
+                navView.setCheckedItem(R.id.nav_home);
+            }
         }
     }
 

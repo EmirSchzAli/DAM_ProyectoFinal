@@ -2,12 +2,14 @@ package com.ali.dc.asistencias_uat.Controlador.Firebase;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.View;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
+import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.DatosUsuario;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Inicio;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Login;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Registrar;
@@ -25,6 +27,7 @@ public class MetodosFirebase {
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public static void logIn(Activity activity, String mail, String password) {
+
         firebaseAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
