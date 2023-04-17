@@ -54,7 +54,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
         if(!dialogShown){
             windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
-            setContentView(R.layout.signup_warning);
+            setContentView(R.layout.tool_signup_warning);
             btnCloseUp = findViewById(R.id.btnCloseUp);
             btnClose = findViewById(R.id.btnClose);
             btnCloseUp.setOnClickListener(this);

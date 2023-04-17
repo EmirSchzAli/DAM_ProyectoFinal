@@ -42,9 +42,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_login);
-
         FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
-        if (user!= null) {
+
+        if (user != null) {
             goToHomePage();
         }
 

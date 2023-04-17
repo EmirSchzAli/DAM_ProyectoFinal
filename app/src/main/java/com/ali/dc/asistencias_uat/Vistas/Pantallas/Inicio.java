@@ -3,52 +3,50 @@ package com.ali.dc.asistencias_uat.Vistas.Pantallas;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Fade;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.MenuFragments.Asistencias;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.MenuFragments.Home;
-import com.ali.dc.asistencias_uat.Vistas.Utilerias.MetodosVistas;
+import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Asistencias;
+import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Home;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Inicio extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     public static MaterialToolbar toolbar;
+    public static WindowInsetsControllerCompat windowInsetsController;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        setContentView(R.layout.nav_drawer_layout);
-
+        user = MetodosFirebase.firebaseAuth.getCurrentUser();
+        setContentView(R.layout.tool_nav_drawer_layout);
         toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
+        setTitle(user.getDisplayName());
 
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navView = findViewById(R.id.navView);
-        navView.setNavigationItemSelectedListener(this);
 
+
+        navView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();

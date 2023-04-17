@@ -29,7 +29,7 @@ public class MetodosVistas {
 
     public static void toast(Activity activity, String mensaje, int status) {
         LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout));
+        View layout = inflater.inflate(R.layout.tool_custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout));
         TextView text = (TextView) layout.findViewById(R.id.text);
         LottieAnimationView animationView = (LottieAnimationView) layout.findViewById(R.id.animation);
         switch (status){
