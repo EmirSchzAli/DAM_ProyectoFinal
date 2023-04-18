@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:colorControlHighlight="@android:color/transparent"
+        app:headerLayout="@layout/tool_nav_header"
         app:menu="@menu/menu_admin"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

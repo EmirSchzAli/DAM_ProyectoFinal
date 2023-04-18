@@ -22,17 +22,31 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/background" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="155dp"
-        android:layout_height="75dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/logos_uat_light" />
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Asistencias"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceTitleLarge"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="155dp"
+            android:layout_height="75dp"
+            style="@style/logo_uat" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

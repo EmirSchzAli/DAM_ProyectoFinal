@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="outline_person" />
-                            <entry key="sourceFile" value="C:\Users\EMIR\Desktop\google.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="logos_uat_light" />
+                            <entry key="sourceFile" value="C:\Users\EMIR\Documents\UAT\Logos\Logos UAT solo.svg" />
                           </map>
                         </option>
                       </PersistentState>

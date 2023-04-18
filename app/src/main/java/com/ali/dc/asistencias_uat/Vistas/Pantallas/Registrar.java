@@ -34,8 +34,8 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     private ImageButton btnCloseUp;
     private LinearLayout secOptionLty, loginLyt;
     private CardView cardView;
-    public static TextInputLayout etMailLyt, etPasswordLyt;
-    public static TextInputEditText etMail, etPassword;
+    public static TextInputLayout etUserNameLyt, etMailLyt, etPasswordLyt;
+    public static TextInputEditText etUserName, etMail, etPassword;
     private Button btnSignUp, btnGoogleSignUp, btnClose;
     private AppBarLayout appBarLayout;
     private MaterialToolbar toolbarLyt;
@@ -61,11 +61,9 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
             btnClose.setOnClickListener(this);
             prefs.edit().putBoolean("dialogShown",true).commit();
         } else {
-
             setContentView(R.layout.activity_registrar);
             setWidgets();
             btnSignUp.setOnClickListener(this);
-
         }
 
     }
@@ -78,8 +76,10 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         loginLyt = (LinearLayout) findViewById(R.id.loginLyt2);
         etMailLyt = (TextInputLayout) findViewById(R.id.etMailLyt2);
         etPasswordLyt = (TextInputLayout) findViewById(R.id.etPasswordLyt2);
+        etUserNameLyt = (TextInputLayout) findViewById(R.id.etUserNameLyt);
         etMail = (TextInputEditText) findViewById(R.id.etMail2);
         etPassword = (TextInputEditText) findViewById(R.id.etPassword2);
+        etUserName = (TextInputEditText) findViewById(R.id.etUserName);
         btnSignUp = (Button) findViewById(R.id.btnSignUp2);
         btnGoogleSignUp = (Button) findViewById(R.id.btnGoogleSignUp2);
         cardTitle = (MaterialTextView) findViewById(R.id.cardTitle2);
@@ -115,12 +115,43 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.etMail2, Patterns.EMAIL_ADDRESS, R.string.invalid_mail);
         awesomeValidation.addValidation(this, R.id.etPassword2, ".{6,}", R.string.invalid_password);
-        if (awesomeValidation.validate()) {
+        if (validarCampos()) {
             String mail = etMail.getText().toString();
             String password = etPassword.getText().toString();
-            MetodosFirebase.signUp(this, mail, password);
-        } else {
-            MetodosVistas.toast(this, "Complete los campos.", 2);
+            String userName = etUserName.getText().toString();
+            MetodosFirebase.signUp(this, userName, mail, password);
         }
+    }
+
+    private boolean validarCampos() {
+        Boolean band = true;
+        if (etUserName.getText().toString().isEmpty()){
+            etUserNameLyt.setError("Nombre de usuario necesario");
+            band = false;
+        } else {
+            etUserNameLyt.setError(null);
+        }
+
+        if (etMail.getText().toString().isEmpty()){
+            etMailLyt.setError("Correo electronico necesario");
+            band = false;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etMail.getText().toString()).matches()){
+            etMailLyt.setError("Correo electronico inválido");
+            band = false;
+        } else {
+            etMailLyt.setError(null);
+        }
+
+        if (etPassword.getText().toString().isEmpty()) {
+            etPasswordLyt.setError("Contraseña necesaria");
+            band = false;
+        } else if (etPassword.getText().toString().length() != 8) {
+            etPasswordLyt.setError("Contraseña debe tener 8 caracteres");
+            band = false;
+        } else {
+            etPasswordLyt.setError(null);
+        }
+
+        return band;
     }
 }

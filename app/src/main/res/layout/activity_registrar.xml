@@ -73,6 +73,25 @@
                         android:transitionName="cardTitleTransition" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etUserNameLyt"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="30dp"
+                        android:hint="Nombre y Apellido"
+                        app:helperText="@string/userName_suggestions"
+                        android:transitionName="emailInputTransition"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/outline_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUserName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etMailLyt2"
                         style="@style/Widget.Material3.TextInputLayout.FilledBox"
                         android:layout_width="match_parent"

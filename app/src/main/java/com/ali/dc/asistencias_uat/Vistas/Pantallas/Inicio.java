@@ -5,18 +5,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.DatosUsuario;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Asistencias;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Home;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -28,7 +27,9 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
     private DrawerLayout drawerLayout;
     public static MaterialToolbar toolbar;
-    public static WindowInsetsControllerCompat windowInsetsController;
+    private NavigationView navView;
+    private TextView userNameTextHeaderNav, userMailTextHeaderNav;
+    private View headerNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +38,33 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         setContentView(R.layout.tool_nav_drawer_layout);
         FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
         String userName = user.getDisplayName();
-        Log.d("Firebase name ====>", ""+userName);
-        if (userName.equals("")) {
+        String userMail = user.getEmail();
 
-        } else {
+        toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        setTitle("Inicio");
 
-            toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
-            setSupportActionBar(toolbar);
-            setTitle(user.getDisplayName());
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.navView);
 
-            drawerLayout = findViewById(R.id.drawerLayout);
-            NavigationView navView = findViewById(R.id.navView);
+        navView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        headerNavView =  navView.getHeaderView(0);
+
+        userNameTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userNameTextHeaderNav);
+        userMailTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userMailTextHeaderNav);
+
+        userNameTextHeaderNav.setText(userName);
+        userMailTextHeaderNav.setText(userMail);
 
 
-            navView.setNavigationItemSelectedListener(this);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-            drawerLayout.addDrawerListener(toggle);
-            toggle.syncState();
 
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
-                navView.setCheckedItem(R.id.nav_home);
-            }
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
+            navView.setCheckedItem(R.id.nav_home);
         }
     }
 

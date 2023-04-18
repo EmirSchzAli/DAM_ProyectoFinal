@@ -3,13 +3,9 @@ package com.ali.dc.asistencias_uat.Controlador.Firebase;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 
-import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.DatosUsuario;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Inicio;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Login;
 import com.ali.dc.asistencias_uat.Vistas.Pantallas.Registrar;
@@ -25,6 +21,21 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class MetodosFirebase {
 
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    /*public static void logInWithGoogle(Activity activity){
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //...
+                        if (!task.isSuccessful()) {
+                            MetodosVistas.toast(activity, "Auntenticación con Google fallida", 0);
+                        }
+                    }
+                });
+    }*/
 
     public static void logIn(Activity activity, String mail, String password) {
 
@@ -54,11 +65,12 @@ public class MetodosFirebase {
         });
     }
 
-    public static void signUp(Activity activity, String mail, String password) {
+    public static void signUp(Activity activity, String userName, String mail, String password) {
         firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    updateUser(userName);
                     MetodosVistas.toast(activity, "Usuario creado con exito", 1);
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
@@ -71,17 +83,6 @@ public class MetodosFirebase {
                 }
             }
         });
-    }
-
-    public static void signOut(Activity activity){
-        firebaseAuth.signOut();
-        Context context = activity.getApplicationContext();
-        Intent intent = new Intent(activity, Login.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private static String getFirebaseError(String error) {
@@ -144,7 +145,18 @@ public class MetodosFirebase {
         return "Error inesperado.";
     }
 
-    public static void completeUser(Activity activity, String userName) {
+    public static void signOut(Activity activity){
+        firebaseAuth.signOut();
+        Context context = activity.getApplicationContext();
+        Intent intent = new Intent(activity, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    public static void updateUser(String userName) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(userName)
@@ -155,7 +167,7 @@ public class MetodosFirebase {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            //Inicio.setHomeLayout(activity);
+
                         }
                     }
                 });
