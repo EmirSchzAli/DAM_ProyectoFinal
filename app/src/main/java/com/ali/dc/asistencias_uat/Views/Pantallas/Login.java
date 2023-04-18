@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Vistas.Pantallas;
+package com.ali.dc.asistencias_uat.Views.Pantallas;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
+import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Vistas.Utilerias.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;

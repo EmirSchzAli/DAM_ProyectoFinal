@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Vistas.Utilerias;
+package com.ali.dc.asistencias_uat.Views.Utilerias;
 
 import android.app.Activity;
 import android.app.AlertDialog;

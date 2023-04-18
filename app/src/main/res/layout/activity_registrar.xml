@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Vistas.Pantallas.Login">
+    tools:context=".Views.Pantallas.Login">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar2"
@@ -73,6 +73,27 @@
                         android:transitionName="cardTitleTransition" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etMatriculaLyt"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="30dp"
+                        android:hint="Matricula"
+                        app:helperText="Ingrese o escane su matricula de empleado"
+                        android:transitionName="emailInputTransition"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/outline_contact"
+                        app:endIconMode="custom"
+                        app:endIconDrawable="@drawable/outline_qr_code">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etMatricula"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etUserNameLyt"
                         style="@style/Widget.Material3.TextInputLayout.FilledBox"
                         android:layout_width="match_parent"
@@ -82,7 +103,7 @@
                         app:helperText="@string/userName_suggestions"
                         android:transitionName="emailInputTransition"
                         app:errorEnabled="true"
-                        app:startIconDrawable="@drawable/outline_mail">
+                        app:startIconDrawable="@drawable/outline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etUserName"

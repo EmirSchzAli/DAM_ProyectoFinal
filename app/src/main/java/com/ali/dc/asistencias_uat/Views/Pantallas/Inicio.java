@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Vistas.Pantallas;
+package com.ali.dc.asistencias_uat.Views.Pantallas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,10 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ali.dc.asistencias_uat.Controlador.Firebase.MetodosFirebase;
+import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Asistencias;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Fragments.Menu.Home;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Asistencias;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Home;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;

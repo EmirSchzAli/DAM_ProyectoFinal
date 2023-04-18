@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Controlador.Firebase;
+package com.ali.dc.asistencias_uat.Controller.Firebase;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Inicio;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Login;
-import com.ali.dc.asistencias_uat.Vistas.Pantallas.Registrar;
-import com.ali.dc.asistencias_uat.Vistas.Utilerias.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Inicio;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Login;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Registrar;
+import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
