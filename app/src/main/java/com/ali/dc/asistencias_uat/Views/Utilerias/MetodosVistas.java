@@ -3,6 +3,7 @@ package com.ali.dc.asistencias_uat.Views.Utilerias;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Inicio;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MetodosVistas {
 
@@ -54,22 +58,36 @@ public class MetodosVistas {
         toast.show();
     }
 
-    public static void dialog(Activity activity, String title,String menssage, String positiveMsg, String negativeMsg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(title);
-        builder.setMessage(menssage)
-                .setPositiveButton(positiveMsg, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })
-                .setNegativeButton(negativeMsg, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-        // Create the AlertDialog object and return it
+    public static void interactiveDialog(Activity activity,
+                                  String title,
+                                  String menssage,
+                                  String positiveBtnText,
+                                  String negativeBtnText,
+                                  Drawable icon,
+                                  DialogInterface.OnClickListener positiveButtonAction,
+                                  DialogInterface.OnClickListener negativeButtonAction) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
+                .setIcon(icon)
+                .setTitle(title)
+                .setMessage(menssage)
+                .setPositiveButton(positiveBtnText, positiveButtonAction)
+                .setNegativeButton(negativeBtnText, negativeButtonAction);
         builder.create();
+        builder.show();
     }
+
+    public static void basicDialog(Activity activity, String title, String menssage, String btnText, Drawable icon) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
+                .setIcon(icon)
+                .setTitle(title)
+                .setMessage(menssage)
+                .setPositiveButton(btnText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+        builder.create();
+        builder.show();
+    }
+
 
 }

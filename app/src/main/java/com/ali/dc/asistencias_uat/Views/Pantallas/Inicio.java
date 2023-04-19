@@ -3,11 +3,10 @@ package com.ali.dc.asistencias_uat.Views.Pantallas;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,8 +17,8 @@ import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Asistencias;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Home;
+import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,7 +26,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
     private DrawerLayout drawerLayout;
     public static MaterialToolbar toolbar;
-    private NavigationView navView;
+    private NavigationView navigationDrawer;
     private TextView userNameTextHeaderNav, userMailTextHeaderNav;
     private View headerNavView;
 
@@ -45,18 +44,16 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         setTitle("Inicio");
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        navView = findViewById(R.id.navView);
+        navigationDrawer = findViewById(R.id.navigationDrawer);
 
-        navView.setNavigationItemSelectedListener(this);
+        navigationDrawer.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        headerNavView =  navView.getHeaderView(0);
-
+        headerNavView =  navigationDrawer.getHeaderView(0);
         userNameTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userNameTextHeaderNav);
         userMailTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userMailTextHeaderNav);
-
         userNameTextHeaderNav.setText(userName);
         userMailTextHeaderNav.setText(userMail);
 
@@ -64,7 +61,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
-            navView.setCheckedItem(R.id.nav_home);
+            navigationDrawer.setCheckedItem(R.id.nav_home);
         }
     }
 
@@ -80,7 +77,16 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
 
             case R.id.nav_signout:
-                signOutDialog();
+                MetodosVistas.interactiveDialog(this,
+                        "Espera",
+                        "¿Desea cerrar sesión?",
+                        "Cerrar Sesión",
+                        "Cancelar",
+                        AppCompatResources.getDrawable(this, R.drawable.outline_sign_out),
+                        (dialogInterface, i) -> {
+                            MetodosFirebase.signOut(this);
+                        },
+                        (dialogInterface, i) -> {});
                 break;
 
         }
@@ -88,24 +94,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         return true;
     }
 
-    public void signOutDialog() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-                .setIcon(R.drawable.outline_sign_out)
-                .setTitle("Aviso")
-                .setMessage("¿Seguro deseas cerrar sesión?")
-                .setPositiveButton("Cerrar sesión", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MetodosFirebase.signOut(Inicio.this);
-                    }
-                })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
-        builder.create();
-        builder.show();
-    }
+
 
     @Override
     public void onBackPressed() {

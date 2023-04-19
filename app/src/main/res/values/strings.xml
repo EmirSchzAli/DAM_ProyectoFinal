@@ -26,4 +26,13 @@
         \n* Números: 0-9
         \n* Mayúsculas y minúculas: A-Z ó a-z</string>
 
+    <string name="google_unenable_title">Google estará pronto con nosotros</string>
+    <string name="google_unenable_text">Por el momento el método de autentificación con Google esta fuera servicio, agradecemos su comprensión.</string>
+
+    <string-array name="kindUsers">
+        <item>Checador-a</item>
+        <item>Secretario-a</item>
+        <item>Administrador-a</item>
+    </string-array>
+
 </resources>

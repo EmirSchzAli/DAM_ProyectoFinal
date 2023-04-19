@@ -1,6 +1,7 @@
 package com.ali.dc.asistencias_uat.Views.Pantallas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.WindowCompat;
 
@@ -18,13 +19,14 @@ import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarLayout appBarLayout;
     private MaterialToolbar toolbar;
@@ -62,19 +64,9 @@ public class Login extends AppCompatActivity {
         btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
         cardTitle = findViewById(R.id.cardTitle);
 
-        fab_registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToSigninPage();
-            }
-        });
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginUser();
-            }
-        });
+        fab_registrar.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        btnGoogleLogin.setOnClickListener(this);
 
     }
 
@@ -122,5 +114,25 @@ public class Login extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_registrar:
+                goToSigninPage();
+                break;
+            case R.id.btnLogin:
+                loginUser();
+                break;
+            case R.id.btnGoogleLogin:
+                MetodosVistas.basicDialog(
+                        this,
+                        getString(R.string.google_unenable_title),
+                        getString(R.string.google_unenable_text),
+                        "De acuerdo",
+                        AppCompatResources.getDrawable(this, R.drawable.google));
+                break;
+        }
     }
 }

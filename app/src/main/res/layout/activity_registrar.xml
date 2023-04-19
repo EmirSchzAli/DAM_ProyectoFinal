@@ -81,6 +81,8 @@
                         android:hint="Matricula"
                         app:helperText="Ingrese o escane su matricula de empleado"
                         android:transitionName="emailInputTransition"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/outline_contact"
                         app:endIconMode="custom"
@@ -90,7 +92,8 @@
                             android:id="@+id/etMatricula"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="number"
+                            android:maxLength="10" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -110,6 +113,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etKindUserLyt"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:hint="Tipo de usario"
+                        app:placeholderText="Selecciona un tipo de usuario"
+                        app:startIconDrawable="@drawable/outline_settings_accessibility">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/listKindsUsersLyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

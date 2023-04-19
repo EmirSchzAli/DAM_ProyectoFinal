@@ -3,9 +3,12 @@ package com.ali.dc.asistencias_uat.Controller.Firebase;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ali.dc.asistencias_uat.DataBase.UsersFirebase;
+import com.ali.dc.asistencias_uat.Models.Users;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Inicio;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Login;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Registrar;
@@ -65,20 +68,25 @@ public class MetodosFirebase {
         });
     }
 
-    public static void signUp(Activity activity, String userName, String mail, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public static void signUp(Activity activity, Users user) {
+        firebaseAuth.createUserWithEmailAndPassword(user.getMail(),
+                user.getPassword())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    updateUser(userName);
-                    MetodosVistas.toast(activity, "Usuario creado con exito", 1);
+                    FirebaseUser actualUser = firebaseAuth.getCurrentUser();
+                    updateUser(user.getNombre());
+                    UsersFirebase.insert(activity, user, actualUser.getUid());
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
                         MetodosVistas.toast(activity, errorMessageResult, 0);
+                        Registrar.setBandSignUp(false);
                     } else {
-                        MetodosVistas.toast(activity, "", 2);
+                        MetodosVistas.toast(activity, "Error de conexión al servidor.", 2);
+                        Registrar.setBandSignUp(false);
                     }
                 }
             }
