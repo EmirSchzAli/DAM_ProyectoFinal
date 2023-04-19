@@ -48,19 +48,19 @@ public class Login extends AppCompatActivity {
             goToHomePage();
         }
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        toolbar = (MaterialToolbar) findViewById(R.id.toolbar);
-        fab_registrar = (ExtendedFloatingActionButton) findViewById(R.id.fab_registrar);
-        cardView = (CardView) findViewById(R.id.cardView);
-        secOptionLty = (LinearLayout) findViewById(R.id.secOptionLyt);
-        loginLyt = (LinearLayout) findViewById(R.id.loginLyt);
-        etMailLyt = (TextInputLayout) findViewById(R.id.etMailLyt);
-        etPasswordLyt = (TextInputLayout) findViewById(R.id.etPasswordLyt);
-        etMail = (TextInputEditText) findViewById(R.id.etMail);
-        etPassword = (TextInputEditText) findViewById(R.id.etPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnGoogleLogin = (Button) findViewById(R.id.btnGoogleLogin);
-        cardTitle = (MaterialTextView) findViewById(R.id.cardTitle);
+        appBarLayout = findViewById(R.id.appbar);
+        toolbar = findViewById(R.id.toolbar);
+        fab_registrar = findViewById(R.id.fab_registrar);
+        cardView = findViewById(R.id.cardView);
+        secOptionLty = findViewById(R.id.secOptionLyt);
+        loginLyt = findViewById(R.id.loginLyt);
+        etMailLyt = findViewById(R.id.etMailLyt);
+        etPasswordLyt = findViewById(R.id.etPasswordLyt);
+        etMail = findViewById(R.id.etMail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
+        cardTitle = findViewById(R.id.cardTitle);
 
         fab_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +111,7 @@ public class Login extends AppCompatActivity {
     public void goToHomePage() {
         Intent intent = new Intent(Login.this, Inicio.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-            | Intent.FLAG_ACTIVITY_NEW_TASK
-            | Intent.FLAG_ACTIVITY_NEW_TASK);
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
