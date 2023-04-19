@@ -21,6 +21,8 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -126,12 +128,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 loginUser();
                 break;
             case R.id.btnGoogleLogin:
-                MetodosVistas.basicDialog(
+                /*MetodosVistas.basicDialog(
                         this,
                         getString(R.string.google_unenable_title),
                         getString(R.string.google_unenable_text),
                         "De acuerdo",
-                        AppCompatResources.getDrawable(this, R.drawable.google));
+                        AppCompatResources.getDrawable(this, R.drawable.google));*/
+                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.logInLayout),
+                        R.string.google_unenable_text, Snackbar.LENGTH_SHORT);
+                mySnackbar.show();
                 break;
         }
     }
