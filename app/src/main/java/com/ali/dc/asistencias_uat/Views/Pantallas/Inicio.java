@@ -78,8 +78,8 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
             case R.id.nav_signout:
                 MetodosVistas.interactiveDialog(this,
-                        "Espera",
-                        "¿Desea cerrar sesión?",
+                        "",
+                        "¿Deseas cerrar sesión?",
                         "Cerrar Sesión",
                         "Cancelar",
                         AppCompatResources.getDrawable(this, R.drawable.outline_sign_out),

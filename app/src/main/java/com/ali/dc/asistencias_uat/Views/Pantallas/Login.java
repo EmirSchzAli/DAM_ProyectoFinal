@@ -128,15 +128,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 loginUser();
                 break;
             case R.id.btnGoogleLogin:
-                /*MetodosVistas.basicDialog(
+                MetodosVistas.basicDialog(
                         this,
                         getString(R.string.google_unenable_title),
                         getString(R.string.google_unenable_text),
                         "De acuerdo",
-                        AppCompatResources.getDrawable(this, R.drawable.google));*/
-                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.logInLayout),
+                        AppCompatResources.getDrawable(this, R.drawable.google));
+                /*Snackbar mySnackbar = Snackbar.make(findViewById(R.id.logInLayout),
                         R.string.google_unenable_text, Snackbar.LENGTH_SHORT);
-                mySnackbar.show();
+                mySnackbar.show();*/
                 break;
         }
     }
