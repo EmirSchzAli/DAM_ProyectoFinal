@@ -41,6 +41,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
         toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Inicio");
 
         drawerLayout = findViewById(R.id.drawerLayout);
