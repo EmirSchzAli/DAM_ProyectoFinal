@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
 
-        if (user != null) {
+        if (user != null && user.isEmailVerified()) {
             goToHomePage();
         }
 

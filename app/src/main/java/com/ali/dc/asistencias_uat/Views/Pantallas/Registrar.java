@@ -35,13 +35,11 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     public static TextInputLayout etMatriculaLyt, etKindUserLyt, etUserNameLyt, etMailLyt, etPasswordLyt;
     public static TextInputEditText etMatricula, etUserName, etMail, etPassword;
     private AutoCompleteTextView listKindsUsersLyt;
-    private Button btnSignUp, btnGoogleSignUp, btnClose;
+    private Button btnSignUp, btnClose;
     private MaterialToolbar toolbarLyt;
     private WindowInsetsControllerCompat windowInsetsController;
-    private AwesomeValidation awesomeValidation;
     private String kindUser;
     public static final String TAG = "MI ETIQUETA ==>";
-    public static Boolean bandSignUp = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +90,6 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         etPassword = findViewById(R.id.etPassword2);
         listKindsUsersLyt = findViewById(R.id.listKindsUsersLyt);
         btnSignUp = findViewById(R.id.btnSignUp2);
-        btnGoogleSignUp = findViewById(R.id.btnGoogleSignUp2);
         setSupportActionBar(toolbarLyt);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -133,13 +130,6 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
             Users user = new Users(matricula, userName, mail, password, kindUser);
             Log.d(TAG, user.toString());
             MetodosFirebase.signUp(this, user);
-            Log.d("MI ETIQUETA AL FINALIZAR EL METODO ==>", ""+bandSignUp);
-            if (bandSignUp){
-                MetodosVistas.basicDialog(this,"Usurio creado con exito",
-                        "Es necesario verificar la cuenta en su correo electronico regtistrado para poder iniciar sesión.",
-                        "De acuerdo",
-                        AppCompatResources.getDrawable(this, R.drawable.outline_check_circle));
-            }
         }
     }
 
@@ -172,7 +162,10 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etMail.getText().toString()).matches()){
             etMailLyt.setError("Correo electronico inválido");
             band = false;
-        } else {
+        } else /*if (!etMail.getText().toString().endsWith("@uat.edu.mx")) {
+            etMailLyt.setError("Correo electronico institucional inválido");
+            band = false;
+        } else*/ {
             etMailLyt.setError(null);
         }
         if (etPassword.getText().toString().isEmpty()) {
@@ -186,11 +179,6 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         }
 
         return band;
-    }
-
-    public static void setBandSignUp(Boolean bandSignUpReturn) {
-        Log.d("bandSignUpReturn", "" + bandSignUpReturn);
-        bandSignUp = bandSignUpReturn;
     }
 
 }

@@ -39,7 +39,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         String userName = user.getDisplayName();
         String userMail = user.getEmail();
 
-        toolbar = (MaterialToolbar) findViewById(R.id.toolbar3);
+        toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Inicio");
@@ -108,5 +108,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
             startActivity(intent);
         }
     }
+
+
 
 }

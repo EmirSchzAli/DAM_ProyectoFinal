@@ -5,13 +5,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ali.dc.asistencias_uat.Controller.Firebase.FirestoreCallback;
 import com.ali.dc.asistencias_uat.Models.Users;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Home;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Registrar;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +18,9 @@ public class UsersFirebase {
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "MI ETIQUETA ===>";
+
+    public static Users user;
+
 
     public static void insert(Activity activity, Users object, String userId) {
 
@@ -35,31 +36,39 @@ public class UsersFirebase {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error al agregar al usaurio en Firestore: ", e);
-                        Registrar.bandSignUp = false;
                     }
                 });
 
     }
 
-    public static void getByUId(String uId){
-        DocumentReference docRef = db.collection("Users").document(uId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                        Home.printUserInformation();
+    public static void getByUId(String uId, FirestoreCallback<Users> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("Users").document(uId);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                if (documentSnapshot.exists()){
+                    Users user = documentSnapshot.toObject(Users.class);
+                    if (user != null) {
+                        callback.onCallback(user);
                     } else {
-                        Log.d(TAG, "No such document");
+                        callback.onFailure(new Exception("El objeto obtenido es nulo"));
                     }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    callback.onFailure(new Exception("El documento no existe"));
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFailure(e);
             }
         });
     }
+
+
 
 }

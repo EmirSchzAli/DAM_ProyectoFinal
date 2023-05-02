@@ -101,7 +101,7 @@
     </style>
 
     <style name="logo_uat">
-        <item name="srcCompat">@drawable/logos_uat_light</item>
+        <item name="srcCompat">@drawable/logos_uat_dark</item>
     </style>
 
 </resources>

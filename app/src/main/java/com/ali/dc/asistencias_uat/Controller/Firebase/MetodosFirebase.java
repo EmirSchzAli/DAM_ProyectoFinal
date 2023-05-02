@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.ali.dc.asistencias_uat.DataBase.UsersFirebase;
 import com.ali.dc.asistencias_uat.Models.Users;
+import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Inicio;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Login;
 import com.ali.dc.asistencias_uat.Views.Pantallas.Registrar;
@@ -25,20 +27,6 @@ public class MetodosFirebase {
 
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    /*public static void logInWithGoogle(Activity activity){
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //...
-                        if (!task.isSuccessful()) {
-                            MetodosVistas.toast(activity, "Auntenticación con Google fallida", 0);
-                        }
-                    }
-                });
-    }*/
 
     public static void logIn(Activity activity, String mail, String password) {
 
@@ -46,13 +34,26 @@ public class MetodosFirebase {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Context context = activity.getApplicationContext();
-                    Intent intent = new Intent(activity, Inicio.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                    FirebaseUser actualUser = firebaseAuth.getCurrentUser();
+                    if (actualUser.isEmailVerified()){
+                        Context context = activity.getApplicationContext();
+                        Intent intent = new Intent(activity, Inicio.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    } else {
+                        MetodosVistas.basicDialog(activity,
+                                "Verificación pendiente",
+                                "Es necesario confirmar tu correo electronico. " +
+                                        "Favor de revisar tu bandeja de entrada y sigue las instrucciones que te mencionan.",
+                                "De acuerdo",
+                                AppCompatResources.getDrawable(activity, R.drawable.outline_mark_email_unread));
+                        firebaseAuth.signOut();
+                    }
+
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
@@ -75,18 +76,34 @@ public class MetodosFirebase {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     FirebaseUser actualUser = firebaseAuth.getCurrentUser();
                     updateUser(user.getNombre());
                     UsersFirebase.insert(activity, user, actualUser.getUid());
+                    //actualUser.sendEmailVerification();
+                    actualUser.sendEmailVerification()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        MetodosVistas.basicDialog(activity,"Usurio creado con exito",
+                                                "Es necesario verificar la cuenta en su correo electronico regtistrado para poder iniciar sesión.",
+                                                "De acuerdo",
+                                                AppCompatResources.getDrawable(activity, R.drawable.outline_check_circle));
+
+                                        firebaseAuth.signOut();
+                                    }
+                                }
+                            });
+
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
                         MetodosVistas.toast(activity, errorMessageResult, 0);
-                        Registrar.setBandSignUp(false);
                     } else {
                         MetodosVistas.toast(activity, "Error de conexión al servidor.", 2);
-                        Registrar.setBandSignUp(false);
                     }
                 }
             }
