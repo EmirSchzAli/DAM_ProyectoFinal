@@ -136,55 +136,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="30dp"
                         android:text="Iniciar Sesión"
                         android:transitionName="buttonLoginTransition" />
-
-                    <LinearLayout
-                        android:id="@+id/secOptionLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="30dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:transitionName="secondOptionTransition">
-
-                        <View
-                            android:id="@+id/divider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:layout_weight="1"
-                            android:background="?android:attr/listDivider" />
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="0"
-                            android:text="ó"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-                        <View
-                            android:id="@+id/divider2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:layout_weight="1"
-                            android:background="?android:attr/listDivider" />
-                    </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnGoogleLogin"
-                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Inicia sesión con Google"
-                        android:transitionName="buttonLoginGoogleTransition"
-                        app:icon="@drawable/google"
-                        app:iconPadding="10dp" />
 
                 </LinearLayout>
 

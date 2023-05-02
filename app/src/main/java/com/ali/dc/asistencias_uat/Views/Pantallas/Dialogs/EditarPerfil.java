@@ -40,7 +40,9 @@ public class EditarPerfil extends AppCompatDialogFragment {
                 })
                 .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                        MetodosFirebase.updateUserAuthentication(etNombre.getText().toString());
+                    }
                 });
 
         etMatriculaLyt = view.findViewById(R.id.etMatriculaLyt);

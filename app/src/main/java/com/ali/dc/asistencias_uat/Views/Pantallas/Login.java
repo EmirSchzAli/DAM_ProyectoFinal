@@ -19,10 +19,7 @@ import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -34,12 +31,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private MaterialToolbar toolbar;
     private ExtendedFloatingActionButton fab_registrar;
     private CardView cardView;
-    private LinearLayout secOptionLty, loginLyt;
+    private LinearLayout loginLyt;
     public static TextInputLayout etMailLyt, etPasswordLyt;
     public static TextInputEditText etMail, etPassword;
-    private Button btnLogin, btnGoogleLogin;
+    private Button btnLogin;
     private MaterialTextView cardTitle;
-    private AwesomeValidation awesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +52,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         toolbar = findViewById(R.id.toolbar);
         fab_registrar = findViewById(R.id.fab_registrar);
         cardView = findViewById(R.id.cardView);
-        secOptionLty = findViewById(R.id.secOptionLyt);
         loginLyt = findViewById(R.id.loginLyt);
         etMailLyt = findViewById(R.id.etMailLyt);
         etPasswordLyt = findViewById(R.id.etPasswordLyt);
         etMail = findViewById(R.id.etMail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
         cardTitle = findViewById(R.id.cardTitle);
 
         fab_registrar.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-        btnGoogleLogin.setOnClickListener(this);
 
     }
 
@@ -80,23 +73,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String password = etPassword.getText().toString();
             MetodosFirebase.logIn(this, mail, password);
         } else {
-            MetodosVistas.toast(this, "Complete los campos.", 2);
+            MetodosVistas.snackBar(Login.this, "Complete los campos.", 2);
         }
     }
 
     private void goToSigninPage() {
         Intent intent = new Intent(Login.this, Registrar.class);
-        Pair[] pairs = new Pair[10];
+        Pair[] pairs = new Pair[8];
         pairs[0] = new Pair<View, String>(cardView, "cardTransition");
         pairs[1] = new Pair<View, String>(etMailLyt, "emailInputTransition");
         pairs[2] = new Pair<View, String>(etPasswordLyt, "passwordInputTransition");
         pairs[3] = new Pair<View, String>(btnLogin, "buttonLoginTransition");
         pairs[4] = new Pair<View, String>(appBarLayout, "toolBarTransition");
         pairs[5] = new Pair<View, String>(cardTitle, "cardTitleTransition");
-        pairs[6] = new Pair<View, String>(btnGoogleLogin, "buttonLoginGoogleTransition");
-        pairs[7] = new Pair<View, String>(secOptionLty, "secondOptionTransition");
-        pairs[8] = new Pair<View, String>(loginLyt, "loginLayoutTransition");
-        pairs[9] = new Pair<View, String>(toolbar, "toolBarTransition");
+        pairs[6] = new Pair<View, String>(loginLyt, "loginLayoutTransition");
+        pairs[7] = new Pair<View, String>(toolbar, "toolBarTransition");
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
         startActivity(intent, options.toBundle());
         //overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -126,17 +117,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.btnLogin:
                 loginUser();
-                break;
-            case R.id.btnGoogleLogin:
-                MetodosVistas.basicDialog(
-                        this,
-                        getString(R.string.google_unenable_title),
-                        getString(R.string.google_unenable_text),
-                        "De acuerdo",
-                        AppCompatResources.getDrawable(this, R.drawable.google));
-                /*Snackbar mySnackbar = Snackbar.make(findViewById(R.id.logInLayout),
-                        R.string.google_unenable_text, Snackbar.LENGTH_SHORT);
-                mySnackbar.show();*/
                 break;
         }
     }

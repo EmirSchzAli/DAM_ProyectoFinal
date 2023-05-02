@@ -3,7 +3,6 @@ package com.ali.dc.asistencias_uat.Controller.Firebase;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -26,7 +25,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class MetodosFirebase {
 
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
 
     public static void logIn(Activity activity, String mail, String password) {
 
@@ -59,10 +57,11 @@ public class MetodosFirebase {
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
                         if (errorMessageResult != null) {
-                            MetodosVistas.toast(activity, errorMessageResult, 0);
+                            MetodosVistas.snackBar(activity, errorMessageResult, 0);
                         }
                     } else {
-                        MetodosVistas.toast(activity, "Error al conectar con el servidor.", 0);
+                        MetodosVistas.snackBar(activity, "Error al conectar con el servidor.", 0);
+
                     }
                 }
             }
@@ -78,7 +77,7 @@ public class MetodosFirebase {
                 if (task.isSuccessful()) {
 
                     FirebaseUser actualUser = firebaseAuth.getCurrentUser();
-                    updateUser(user.getNombre());
+                    updateUserAuthentication(user.getNombre());
                     UsersFirebase.insert(activity, user, actualUser.getUid());
                     //actualUser.sendEmailVerification();
                     actualUser.sendEmailVerification()
@@ -101,9 +100,9 @@ public class MetodosFirebase {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
-                        MetodosVistas.toast(activity, errorMessageResult, 0);
+                        MetodosVistas.snackBar(activity, errorMessageResult, 0);
                     } else {
-                        MetodosVistas.toast(activity, "Error de conexión al servidor.", 2);
+                        MetodosVistas.snackBar(activity, "Error de conexión al servidor.", 2);
                     }
                 }
             }
@@ -181,7 +180,7 @@ public class MetodosFirebase {
         activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    public static void updateUser(String userName) {
+    public static void updateUserAuthentication(String userName) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(userName)

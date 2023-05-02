@@ -1,23 +1,22 @@
 package com.ali.dc.asistencias_uat.Views.Utilerias;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Inicio;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MetodosVistas {
 
@@ -31,31 +30,12 @@ public class MetodosVistas {
         return windowInsetsController;
     }
 
-    public static void toast(Activity activity, String mensaje, int status) {
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.tool_custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout));
-        TextView text = (TextView) layout.findViewById(R.id.text);
-        LottieAnimationView animationView = (LottieAnimationView) layout.findViewById(R.id.animation);
-        switch (status){
-            case 0:
-                animationView.setAnimation(R.raw.error_status);
-                break;
-            case 1:
-                animationView.setAnimation(R.raw.success_status);
-                break;
-            case 2:
-                animationView.setAnimation(R.raw.warning_status);
-                break;
-            default:
-                animationView.setAnimation(R.raw.info_status);
-                break;
-        }
-        animationView.playAnimation();
-        text.setText(mensaje);
-        Toast toast = new Toast(activity);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
+    public static void snackBar(Activity activity, String mensaje, int status) {
+        Snackbar.make(activity.findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, null))
+                .setAnimationMode(ANIMATION_MODE_SLIDE)
+                .setTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
+                .show();
     }
 
     public static void interactiveDialog(Activity activity,

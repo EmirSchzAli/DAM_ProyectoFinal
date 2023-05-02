@@ -32,6 +32,8 @@
         <item name="android:windowActivityTransitions">true</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+        <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/Widget.App.SnackbarButton</item>
     </style>
 
     <style name="Theme.DAM_ProyectoFinal" parent="Base.Theme.DAM_ProyectoFinal" />
@@ -100,5 +102,19 @@
     <style name="logo_uat">
         <item name="srcCompat">@drawable/logos_uat_light</item>
     </style>
+
+    <style name="Widget.App.Snackbar" parent="Widget.Material3.Snackbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Snackbar</item>
+    </style>
+
+    <style name="Widget.App.SnackbarButton" parent="Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Snackbar" parent="">
+        <item name="colorPrimaryInverse">?attr/colorPrimary</item>
+        <item name="colorOnSurfaceInverse">?attr/colorPrimary</item>
+    </style>
+
 
 </resources>
