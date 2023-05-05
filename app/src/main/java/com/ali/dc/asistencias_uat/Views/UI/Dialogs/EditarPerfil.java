@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs;
+package com.ali.dc.asistencias_uat.Views.UI.Dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,7 +1,6 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas;
+package com.ali.dc.asistencias_uat.Views.UI.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -20,11 +19,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
-import com.ali.dc.asistencias_uat.DataBase.UsersFirebase;
 import com.ali.dc.asistencias_uat.Models.Users;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
-import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

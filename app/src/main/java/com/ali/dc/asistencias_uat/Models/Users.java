@@ -2,29 +2,29 @@ package com.ali.dc.asistencias_uat.Models;
 
 public class Users {
 
-    private long matricula;
+    private int id;
     private String nombre;
     private String mail;
     private String password;
-    private String tipoUsuario;
+    private int tipoUsuario;
 
     public Users() {
     }
 
-    public Users(long matricula, String nombre, String mail, String password, String tipoUsuario) {
-        this.matricula = matricula;
+    public Users(int id, String nombre, String mail, String password, int tipoUsuario) {
+        this.id = id;
         this.nombre = nombre;
         this.mail = mail;
         this.password = password;
         this.tipoUsuario = tipoUsuario;
     }
 
-    public long getMatricula() {
-        return matricula;
+    public int getId() {
+        return id;
     }
 
-    public void setMatricula(long matricula) {
-        this.matricula = matricula;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -51,22 +51,22 @@ public class Users {
         this.password = password;
     }
 
-    public String getTipoUsuario() {
+    public int getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
+    public void setTipoUsuario(int tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
     @Override
     public String toString() {
-        return "Users{" +
-                "matricula = " + matricula +
-                ", nombre = '" + nombre + '\'' +
-                ", mail = '" + mail + '\'' +
-                ", password = '" + password + '\'' +
-                ", tipoUsuario = '" + tipoUsuario + '\'' +
-                '}';
+        return "{" +
+                "id:" + id + "," +
+                "nombre:'" + nombre + "'," +
+                "mail:'" + mail + "'," +
+                "password:'" + password + "'," +
+                "tipoUsuario:" + tipoUsuario +
+                "}";
     }
 }

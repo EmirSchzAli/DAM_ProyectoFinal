@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas;
+package com.ali.dc.asistencias_uat.Views.UI.Screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Asistencias;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Fragments.Menu.Home;
-import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.UI.Fragments.Menu.Asistencias;
+import com.ali.dc.asistencias_uat.Views.UI.Fragments.Menu.Home;
+import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;

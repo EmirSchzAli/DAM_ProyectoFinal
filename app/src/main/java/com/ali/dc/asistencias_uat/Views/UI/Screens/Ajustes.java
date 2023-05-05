@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas;
+package com.ali.dc.asistencias_uat.Views.UI.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 

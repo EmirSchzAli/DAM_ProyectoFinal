@@ -1,7 +1,6 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas;
+package com.ali.dc.asistencias_uat.Views.UI.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.WindowCompat;
 
@@ -15,10 +14,8 @@ import android.widget.LinearLayout;
 
 import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs.EditarPerfil;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs.RestablecerContrasenna;
-import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
-import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.ali.dc.asistencias_uat.Views.UI.Dialogs.RestablecerContrasenna;
+import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;

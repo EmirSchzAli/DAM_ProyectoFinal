@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs;
+package com.ali.dc.asistencias_uat.Views.UI.Dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,12 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.ali.dc.asistencias_uat.Controller.Firebase.FirestoreCallback;
 import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
-import com.ali.dc.asistencias_uat.DataBase.UsersFirebase;
-import com.ali.dc.asistencias_uat.Models.Users;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Pantallas.Login;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
