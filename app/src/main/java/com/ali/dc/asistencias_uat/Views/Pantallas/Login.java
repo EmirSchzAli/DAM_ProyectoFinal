@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 
 import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs.EditarPerfil;
+import com.ali.dc.asistencias_uat.Views.Pantallas.Dialogs.RestablecerContrasenna;
 import com.ali.dc.asistencias_uat.Views.Utilerias.MetodosVistas;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.android.material.appbar.AppBarLayout;
@@ -34,7 +36,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout loginLyt;
     public static TextInputLayout etMailLyt, etPasswordLyt;
     public static TextInputEditText etMail, etPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnResetPass;
     private MaterialTextView cardTitle;
 
     @Override
@@ -58,10 +60,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etMail = findViewById(R.id.etMail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnResetPass = findViewById(R.id.btnResetPass);
         cardTitle = findViewById(R.id.cardTitle);
 
         fab_registrar.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnResetPass.setOnClickListener(this);
 
     }
 
@@ -73,7 +77,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String password = etPassword.getText().toString();
             MetodosFirebase.logIn(this, mail, password);
         } else {
-            MetodosVistas.snackBar(Login.this, "Complete los campos.", 2);
+            MetodosVistas.snackBar(Login.this, "Complete los campos.");
         }
     }
 
@@ -118,6 +122,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.btnLogin:
                 loginUser();
                 break;
+            case R.id.btnResetPass:
+                RestablecerContrasenna restablecerContrasenna = new RestablecerContrasenna();
+                restablecerContrasenna.show(getSupportFragmentManager(), "resetDialog");
+                break;
+
         }
     }
 }

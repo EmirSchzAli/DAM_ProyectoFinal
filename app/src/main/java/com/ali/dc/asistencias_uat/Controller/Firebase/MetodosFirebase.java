@@ -57,10 +57,10 @@ public class MetodosFirebase {
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
                         if (errorMessageResult != null) {
-                            MetodosVistas.snackBar(activity, errorMessageResult, 0);
+                            MetodosVistas.snackBar(activity, errorMessageResult);
                         }
                     } else {
-                        MetodosVistas.snackBar(activity, "Error al conectar con el servidor.", 0);
+                        MetodosVistas.snackBar(activity, "Error al conectar con el servidor.");
 
                     }
                 }
@@ -100,9 +100,9 @@ public class MetodosFirebase {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
                         String errorMessageResult = getFirebaseError(errorMessage);
-                        MetodosVistas.snackBar(activity, errorMessageResult, 0);
+                        MetodosVistas.snackBar(activity, errorMessageResult);
                     } else {
-                        MetodosVistas.snackBar(activity, "Error de conexión al servidor.", 2);
+                        MetodosVistas.snackBar(activity, "Error de conexión al servidor.");
                     }
                 }
             }
@@ -193,6 +193,19 @@ public class MetodosFirebase {
                         if (task.isSuccessful()) {
 
                         }
+                    }
+                });
+    }
+
+    public static void resetPassword(Activity activity, String mail) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        auth.sendPasswordResetEmail(mail)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        MetodosVistas.snackBar(activity, "Tu correo ha sido enviado. Favor de revisar tu bandeja de entrada.");
+                        auth.signOut();
                     }
                 });
     }

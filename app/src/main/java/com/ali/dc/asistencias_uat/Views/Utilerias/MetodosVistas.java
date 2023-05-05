@@ -30,7 +30,7 @@ public class MetodosVistas {
         return windowInsetsController;
     }
 
-    public static void snackBar(Activity activity, String mensaje, int status) {
+    public static void snackBar(Activity activity, String mensaje) {
         Snackbar.make(activity.findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, null))
                 .setAnimationMode(ANIMATION_MODE_SLIDE)

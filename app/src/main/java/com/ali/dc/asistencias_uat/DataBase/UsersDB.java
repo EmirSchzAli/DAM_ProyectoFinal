@@ -2,20 +2,22 @@ package com.ali.dc.asistencias_uat.DataBase;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Users;
 import com.ali.dc.asistencias_uat.Models.Users;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.Response;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.grpc.okhttp.internal.proxy.Request;
 
 public class UsersDB implements DAO_Users {
     @Override
@@ -48,8 +50,8 @@ public class UsersDB implements DAO_Users {
         };
 
 // Agregar la solicitud a la cola de solicitudes de Volley
-        RequestQueue cola = Volley.newRequestQueue(this);
-        cola.add(solicitud);
+        RequestQueue requestQueue = Volley.newRequestQueue(new Activity());
+        requestQueue.add(solicitud);
     }
 
     @Override
