@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.UI.Dialogs;
+package com.ali.dc.asistencias_uat.UI.Views.Dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
+import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -38,14 +38,14 @@ public class RestablecerContrasenna extends AppCompatDialogFragment {
                 .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MetodosFirebase.resetPassword(getActivity(), etMail.getText().toString());
+                        Firebase.resetPassword(getActivity(), etMail.getText().toString());
                     }
                 });
 
         etMailLyt= view.findViewById(R.id.etMailLyt);
         etMail = view.findViewById(R.id.etMail);
 
-        FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
+        FirebaseUser user = Firebase.firebaseAuth.getCurrentUser();
 
         return builder.create();
     }

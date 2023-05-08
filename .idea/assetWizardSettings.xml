@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/emoji_people/outline_emoji_people_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/delete/outline_delete_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="outline_emoji_people" />
-                            <entry key="sourceFile" value="D:\Documents\UAT\Logos\Logos UAT solo Blanco.svg" />
+                            <entry key="outputName" value="outline_delete" />
+                            <entry key="sourceFile" value="C:\Users\EMIR\Downloads\undraw_page_not_found_re_e9o6.svg" />
                           </map>
                         </option>
                       </PersistentState>

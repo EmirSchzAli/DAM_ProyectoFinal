@@ -1,6 +1,6 @@
-package com.ali.dc.asistencias_uat.Views.UI.Screens;
+package com.ali.dc.asistencias_uat.UI.Views.Screens;
 
-import static com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas.initWindowController;
+import static com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas.initWindowController;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;

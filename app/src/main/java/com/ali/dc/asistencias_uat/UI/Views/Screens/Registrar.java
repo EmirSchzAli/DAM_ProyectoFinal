@@ -1,6 +1,7 @@
-package com.ali.dc.asistencias_uat.Views.UI.Screens;
+package com.ali.dc.asistencias_uat.UI.Views.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -18,10 +19,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
-import com.ali.dc.asistencias_uat.Models.Users;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseCallback;
+import com.ali.dc.asistencias_uat.Controller.Firebase;
+import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
+import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.Utilities.Constantes;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,9 +38,9 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     private AutoCompleteTextView listKindsUsersLyt;
     private Button btnSignUp, btnClose;
     private MaterialToolbar toolbarLyt;
-    private WindowInsetsControllerCompat windowInsetsController;
     private String kindUser;
-    public static final String TAG = "MI ETIQUETA ==>";
+    private WindowInsetsControllerCompat windowInsetsController;
+    private AdministradoresDB adminDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         SharedPreferences prefs = this.getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
         Boolean dialogShown = prefs.getBoolean("dialogShown", false);
         windowInsetsController = MetodosVistas.initWindowController(Registrar.this);
-
+        adminDB = new AdministradoresDB(Registrar.this);
 
         if(!dialogShown){
             windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
@@ -119,14 +123,37 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
     private void signUpNewUser() {
         if (validarCampos()) {
-            Long matricula = Long.valueOf(etMatricula.getText().toString());
-            String userName = etUserName.getText().toString();
+            String num_empleado = etMatricula.getText().toString();
+            String nombre = etUserName.getText().toString();
             String mail = etMail.getText().toString();
             String password = etPassword.getText().toString();
             kindUser = listKindsUsersLyt.getText().toString();
-            Users user = new Users(matricula, userName, mail, password, kindUser);
-            Log.d(TAG, user.toString());
-            MetodosFirebase.signUp(this, user);
+            int id_tipoAdmin = 3;
+            if (kindUser.equals("Administrador")) {
+                id_tipoAdmin = 1;
+            } else if (kindUser.equals("Secretario")) {
+                id_tipoAdmin = 2;
+            } else if (kindUser.equals("Checador")) {
+                id_tipoAdmin = 3;
+            }
+            int finalId_tipoAdmin = id_tipoAdmin;
+            Firebase.signUp(mail, password, new FirebaseCallback() {
+                @Override
+                public void onSuccess(String uid) {
+                    MetodosVistas.basicDialog(Registrar.this,"Usuario creado con exito",
+                            "Es necesario verificar la cuenta en su correo electronico regtistrado para poder iniciar sesión.",
+                            "De acuerdo",
+                            AppCompatResources.getDrawable(getApplicationContext(), R.drawable.outline_check_circle));
+                    Administradores user = new Administradores(uid, num_empleado, nombre, mail, finalId_tipoAdmin);
+                    Log.d(Constantes.TAG, user.toString());
+                    adminDB.insert(user);
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    MetodosVistas.snackBar(Registrar.this, msg);
+                }
+            });
         }
     }
 

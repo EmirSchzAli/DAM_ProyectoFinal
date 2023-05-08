@@ -1,4 +1,6 @@
-package com.ali.dc.asistencias_uat.Views.UI.Screens;
+package com.ali.dc.asistencias_uat.UI.Views.Screens;
+
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -9,15 +11,23 @@ import androidx.core.view.WindowCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
+import com.ali.dc.asistencias_uat.Controller.Firebase;
+import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
+import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.UI.Fragments.Menu.Asistencias;
-import com.ali.dc.asistencias_uat.Views.UI.Fragments.Menu.Home;
-import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.UI.Views.Fragments.Alumnos;
+import com.ali.dc.asistencias_uat.UI.Views.Fragments.Asistencias;
+import com.ali.dc.asistencias_uat.UI.Views.Fragments.Docentes;
+import com.ali.dc.asistencias_uat.UI.Views.Fragments.Home;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.UI.Views.Fragments.Salones;
+import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,15 +39,16 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     private NavigationView navigationDrawer;
     private TextView userNameTextHeaderNav, userMailTextHeaderNav;
     private View headerNavView;
+    private AdministradoresDB adminDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.tool_nav_drawer_layout);
-        FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
-        String userName = user.getDisplayName();
-        String userMail = user.getEmail();
+
+
+        FirebaseUser user = Firebase.firebaseAuth.getCurrentUser();
+        String uId = user.getUid();
 
         toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
@@ -46,24 +57,50 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationDrawer = findViewById(R.id.navigationDrawer);
+        headerNavView = navigationDrawer.getHeaderView(0);
+        userNameTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userNameTextHeaderNav);
+        userMailTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userMailTextHeaderNav);
+
+        adminDB = new AdministradoresDB(getApplicationContext());
+        adminDB.getByFirebaseId(uId, new VolleyCallback<Administradores>() {
+            @Override
+            public void onSuccess(Administradores administradores) {
+                printData(administradores);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                MetodosVistas.interactiveDialog(
+                        Inicio.this,
+                        errorMessage,
+                        null,
+                        "Regresar",
+                        "",
+                        AppCompatResources.getDrawable(Inicio.this, R.drawable.outline_error),
+                        (dialogInterface, i) -> {
+                            startActivity(new Intent(Inicio.this, Login.class));
+                            Firebase.signOut(Inicio.this);
+                        },
+                        (dialogInterface, i) -> {});
+            }
+        });
+
 
         navigationDrawer.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        headerNavView =  navigationDrawer.getHeaderView(0);
-        userNameTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userNameTextHeaderNav);
-        userMailTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userMailTextHeaderNav);
-        userNameTextHeaderNav.setText(userName);
-        userMailTextHeaderNav.setText(userMail);
-
-
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
             navigationDrawer.setCheckedItem(R.id.nav_home);
         }
+    }
+
+    private void printData(Administradores administradores) {
+        Log.d("objecto en metodo: ", administradores.toString());
+        userNameTextHeaderNav.setText(administradores.getNombre());
+        userMailTextHeaderNav.setText(administradores.getCorreo());
     }
 
     @Override
@@ -77,6 +114,22 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Asistencias()).commit();
                 break;
 
+            case R.id.nav_teachers:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Docentes()).commit();
+                break;
+
+            case R.id.nav_students:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Alumnos()).commit();
+                break;
+
+            case R.id.nav_classrooms:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Salones()).commit();
+                break;
+
+            case R.id.nav_admins:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new com.ali.dc.asistencias_uat.UI.Views.Fragments.Administradores()).commit();
+                break;
+
             case R.id.nav_signout:
                 MetodosVistas.interactiveDialog(this,
                         "",
@@ -85,7 +138,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
                         "Cancelar",
                         AppCompatResources.getDrawable(this, R.drawable.outline_sign_out),
                         (dialogInterface, i) -> {
-                            MetodosFirebase.signOut(this);
+                            Firebase.signOut(this);
                         },
                         (dialogInterface, i) -> {});
                 break;
@@ -94,8 +147,6 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 
     @Override
     public void onBackPressed() {

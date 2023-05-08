@@ -1,4 +1,4 @@
-package com.ali.dc.asistencias_uat.Views.UI.Screens;
+package com.ali.dc.asistencias_uat.UI.Views.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.ali.dc.asistencias_uat.Controller.Firebase.MetodosFirebase;
+import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.Views.UI.Dialogs.RestablecerContrasenna;
-import com.ali.dc.asistencias_uat.Views.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.RestablecerContrasenna;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_login);
-        FirebaseUser user = MetodosFirebase.firebaseAuth.getCurrentUser();
+        FirebaseUser user = Firebase.firebaseAuth.getCurrentUser();
 
         if (user != null && user.isEmailVerified()) {
             goToHomePage();
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (!etMail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
             String mail = etMail.getText().toString();
             String password = etPassword.getText().toString();
-            MetodosFirebase.logIn(this, mail, password);
+            Firebase.logIn(this, mail, password);
         } else {
             MetodosVistas.snackBar(Login.this, "Complete los campos.");
         }

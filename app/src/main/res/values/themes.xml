@@ -116,5 +116,11 @@
         <item name="colorOnSurfaceInverse">?attr/colorPrimary</item>
     </style>
 
+    <style name="DialogTheme" parent="ThemeOverlay.Material3">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 
 </resources>

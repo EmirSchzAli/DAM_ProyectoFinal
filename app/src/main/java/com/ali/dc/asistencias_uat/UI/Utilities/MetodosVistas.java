@@ -1,11 +1,15 @@
-package com.ali.dc.asistencias_uat.Views.Utilities;
+package com.ali.dc.asistencias_uat.UI.Utilities;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
@@ -33,6 +37,16 @@ public class MetodosVistas {
                 .show();
     }
 
+    public static void interactiveSnackBar(Activity activity, String mensaje, String actionMsg, View.OnClickListener action) {
+        Snackbar.make(activity.findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_INDEFINITE)
+                .setBackgroundTint(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, null))
+                .setAnimationMode(ANIMATION_MODE_SLIDE)
+                .setTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
+                .setActionTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
+                .setAction(actionMsg, action)
+                .show();
+    }
+
     public static void interactiveDialog(Activity activity,
                                   String title,
                                   String menssage,
@@ -47,9 +61,12 @@ public class MetodosVistas {
                 .setMessage(menssage)
                 .setPositiveButton(positiveBtnText, positiveButtonAction)
                 .setNegativeButton(negativeBtnText, negativeButtonAction);
+        builder.setCancelable(false);
         builder.create();
         builder.show();
     }
+
+
 
     public static void basicDialog(Activity activity, String title, String menssage, String btnText, Drawable icon) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)

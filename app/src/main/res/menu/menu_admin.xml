@@ -18,25 +18,37 @@
 
     </group>
 
+
+
     <item android:title="Control">
 
         <menu>
+            <group android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/nav_users"
-                android:icon="@drawable/outline_school"
-                android:title="Usuarios"/>
+                <item
+                    android:id="@+id/nav_teachers"
+                    android:icon="@drawable/outline_school"
+                    android:title="Docentes"/>
 
-            <item
-                android:id="@+id/nav_classrooms"
-                android:icon="@drawable/outline_meeting_room"
-                android:title="Salones"/>
-            <item
-                android:id="@+id/nav_admins"
-                android:icon="@drawable/outline_manage_accounts"
-                android:title="Administradores"/>
+                <item
+                    android:id="@+id/nav_students"
+                    android:icon="@drawable/outline_students"
+                    android:title="Alumnos"/>
+
+                <item
+                    android:id="@+id/nav_classrooms"
+                    android:icon="@drawable/outline_meeting_room"
+                    android:title="Salones"/>
+                <item
+                    android:id="@+id/nav_admins"
+                    android:icon="@drawable/outline_manage_accounts"
+                    android:title="Administradores"/>
+
+            </group>
 
         </menu>
+
+
 
     </item>
 
@@ -44,25 +56,31 @@
 
         <menu>
 
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/outline_info"
-                android:title="Acerca de"/>
+            <group android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/outline_settings"
-                android:title="Preferencias"/>
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/outline_info"
+                    android:title="Acerca de"/>
 
-            <item></item>
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/outline_settings"
+                    android:title="Preferencias"/>
 
-            <item
-                android:id="@+id/nav_signout"
-                android:icon="@drawable/outline_sign_out"
-                android:title="Cerrar Sesión"/>
+            </group>
 
         </menu>
 
+    </item>
+
+    <item>
+        <item></item>
+
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/outline_sign_out"
+            android:title="Cerrar Sesión"/>
     </item>
 
 </menu>

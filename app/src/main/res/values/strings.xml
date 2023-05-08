@@ -12,9 +12,9 @@
 
     <string name="fragment_home_label">Inicio</string>
     <string name="fragment_asistencias_label">Asistencias</string>
-    <string name="fragment_add_classroom_label">Agregar Salón</string>
-    <string name="fragment_admin_classroom_label">Administrar Salones</string>
-    <string name="fragment_add_user_label">Agregar Usuario</string>
+    <string name="fragment_alumnos_label">Alumnos</string>
+    <string name="fragment_classroom_label">Salones</string>
+    <string name="fragment_docentes_label">Docentes</string>
     <string name="fragment_admin_user_label">Administrar Usuarios</string>
     <string name="fragment_add_admin_label">Agregar Administrador</string>
     <string name="fragment_admin_admin_label">Administrar Administradores</string>
@@ -30,9 +30,9 @@
     <string name="google_unenable_text">Por el momento el método de autentificación con Google esta fuera servicio, agradecemos su comprensión.</string>
 
     <string-array name="kindUsers">
-        <item>Checador-a</item>
-        <item>Secretario-a</item>
-        <item>Administrador-a</item>
+        <item>Checador</item>
+        <item>Secretario</item>
+        <item>Administrador</item>
     </string-array>
 
     <string name="title_toolbar"><p style="font-weight: 900;">Hola mundo</p></string>
