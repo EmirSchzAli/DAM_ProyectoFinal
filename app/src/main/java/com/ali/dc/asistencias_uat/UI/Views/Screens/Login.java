@@ -24,6 +24,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.AccessControlContext;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarLayout appBarLayout;
@@ -31,10 +33,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ExtendedFloatingActionButton fab_registrar;
     private CardView cardView;
     private LinearLayout loginLyt;
-    public static TextInputLayout etMailLyt, etPasswordLyt;
+    public static TextInputLayout etMailLyt;
+    public static TextInputLayout etPasswordLyt;
     public static TextInputEditText etMail, etPassword;
     private Button btnLogin, btnResetPass;
     private MaterialTextView cardTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

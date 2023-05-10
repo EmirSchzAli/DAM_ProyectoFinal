@@ -7,15 +7,19 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseCallback;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseGetUserCallback;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Login;
-import com.ali.dc.asistencias_uat.UI.Views.Screens.Registrar;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,7 +58,7 @@ public class Firebase {
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
-                        String errorMessageResult = getFirebaseError(errorMessage);
+                        String errorMessageResult = MetodosVistas.getFirebaseError(errorMessage);
                         if (errorMessageResult != null) {
                             MetodosVistas.snackBar(activity, errorMessageResult);
                         }
@@ -67,7 +71,7 @@ public class Firebase {
         });
     }
 
-    public static void signUp(String correo, String contrasenna, FirebaseCallback callback) {
+    public static void signUp(String correo, String contrasenna, FirebaseGetUserCallback callback) {
         firebaseAuth.createUserWithEmailAndPassword(correo,
                 contrasenna)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -89,7 +93,7 @@ public class Firebase {
                 } else {
                     if(task.getException() instanceof FirebaseAuthException){
                         String errorMessage = ((FirebaseAuthException) task.getException()).getErrorCode();
-                        String errorMessageResult = getFirebaseError(errorMessage);
+                        String errorMessageResult = MetodosVistas.getFirebaseError(errorMessage);
                         callback.onFailure(errorMessageResult);
                     } else {
                         callback.onFailure("Error de conexión al servidor.");
@@ -97,66 +101,6 @@ public class Firebase {
                 }
             }
         });
-    }
-
-    private static String getFirebaseError(String error) {
-
-        switch (error) {
-
-            case "ERROR_INVALID_CUSTOM_TOKEN":
-                return "El formato del token personalizado es incorrecto. Por favor revise la documentación";
-
-            case "ERROR_CUSTOM_TOKEN_MISMATCH":
-                return "El token personalizado corresponde a una audiencia diferente.";
-
-            case "ERROR_INVALID_CREDENTIAL":
-                return "La credencial de autenticación proporcionada tiene un formato incorrecto o ha caducado.";
-
-            case "ERROR_INVALID_EMAIL":
-                Login.etMailLyt.setError("La dirección de correo electrónico está mal estructurada.");
-                return null;
-
-            case "ERROR_WRONG_PASSWORD":
-                Login.etPasswordLyt.setError("La contraseña es incorrecta ");
-                Login.etPassword.setText("");
-                return null;
-
-            case "ERROR_USER_MISMATCH":
-                return "Las credenciales proporcionadas no corresponden al usuario que inició sesión anteriormente.";
-
-            case "ERROR_REQUIRES_RECENT_LOGIN":
-                return "Esta operación es sensible y requiere autenticación reciente. Inicie sesión nuevamente antes de volver a intentar esta solicitud.";
-
-            case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                return "Ya existe una cuenta con la misma dirección de correo electrónico pero diferentes credenciales de inicio de sesión. Inicie sesión con un proveedor asociado a esta dirección de correo electrónico.";
-
-            case "ERROR_EMAIL_ALREADY_IN_USE":
-                return "La dirección de correo electrónico ya está siendo utilizada por otra cuenta.";
-
-            case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                return "Esta credencial ya está asociada con una cuenta de usuario diferente.";
-
-            case "ERROR_USER_DISABLED":
-                return "La cuenta de usuario ha sido inhabilitada por un administrador.";
-
-            case "ERROR_USER_TOKEN_EXPIRED":
-                return "La credencial del usuario ya no es válida. El usuario debe iniciar sesión nuevamente.";
-
-            case "ERROR_USER_NOT_FOUND":
-                return "No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.";
-
-            case "ERROR_INVALID_USER_TOKEN":
-                return "La credencial del usuario ya no es válida. El usuario debe iniciar sesión nuevamente.";
-
-            case "ERROR_OPERATION_NOT_ALLOWED":
-                return "Esta operación no está permitida. Debes habilitar este servicio en la consola.";
-
-            case "ERROR_WEAK_PASSWORD":
-                Registrar.etPasswordLyt.setError("La contraseña no es válida, debe tener al menos 8 caracteres");
-                return null;
-        }
-
-        return "Error inesperado.";
     }
 
     public static void signOut(Activity activity){
@@ -187,15 +131,26 @@ public class Firebase {
                 });
     }
 
-    public static void resetPassword(Activity activity, String mail) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        auth.sendPasswordResetEmail(mail)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+    public static void resetPassword(String oldPassword, String newPassword, BooleanCallback callback) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        AuthCredential authentication = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
+        user.reauthenticate(authentication)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        MetodosVistas.snackBar(activity, "Tu correo ha sido enviado. Favor de revisar tu bandeja de entrada.");
-                        auth.signOut();
+                    public void onSuccess(Void unused) {
+
+                        user.updatePassword(newPassword).
+                                addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        callback.onResponse(true, "Contraseña actualizada.");
+                                    }
+                                });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onResponse(false, "Contraseña actual incorrecta.");
                     }
                 });
     }

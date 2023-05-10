@@ -15,24 +15,75 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="Ingresa tu correo electronico para enviar tu solicitud:"
+            android:text="Ingresa los siguientes datos para actualizar tu contraseña:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etMailLyt"
+            android:id="@+id/etOldPasswordLyt"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Correo electronico"
-            android:transitionName="emailInputTransition"
+            android:layout_marginBottom="30dp"
+            android:hint="Contraseña Actual"
+            android:transitionName="passwordInputTransition"
             app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_mail">
+            app:endIconMode="password_toggle"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:startIconDrawable="@drawable/outline_password">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMail"
+                android:id="@+id/etOldPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPassword"
+                android:maxLength="8"
+                />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etNewPasswordLyt"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:hint="Contraseña Nueva"
+            app:helperText="@string/password_suggestions"
+            android:transitionName="passwordInputTransition"
+            app:errorEnabled="true"
+            app:endIconMode="password_toggle"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:startIconDrawable="@drawable/outline_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLength="8"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvWrongPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textAlignment="center"
+            android:textColor="?attr/colorError"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangePassword"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cambiar contraseña"
+            android:transitionName="buttonLoginTransition" />
+
 
     </LinearLayout>
 

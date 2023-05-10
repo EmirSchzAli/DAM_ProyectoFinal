@@ -17,52 +17,42 @@ import java.util.List;
 
 public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHolder> {
 
-    private TextView tvNombre, tvMatricula;
+    private List<Alumnos> alumnosList;
+    private Context mContext;
 
-    private List<Alumnos> retrievedResponses;
-    private Context context;
-
-    public AlumnosAdapter(List<Alumnos> retrievedResponses, Context context) {
-        this.retrievedResponses = retrievedResponses;
-        this.context = context;
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView tvNombre, tvMatricula;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tvNombre = itemView.findViewById(R.id.tvNombre);
-            tvMatricula = itemView.findViewById(R.id.tvMatricula);;
-        }
-
-        public void setNombre(String nombre) {
-            tvNombre.setText(nombre);
-        }
-
-        public void setMatricula(String matricula) {
-            tvMatricula.setText(matricula);
-        }
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_item_alumnos, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setNombre(retrievedResponses.get(position).getNombre());
-        holder.setMatricula(retrievedResponses.get(position).getMatricula());
+    public AlumnosAdapter(List<Alumnos> alumnosList, Context mContext) {
+        this.alumnosList = alumnosList;
+        this.mContext = mContext;
     }
 
     @Override
     public int getItemCount() {
-        return retrievedResponses.size();
+        return alumnosList.size();
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()). inflate(R.layout.recycler_item_alumnos, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Alumnos alumno = alumnosList.get(position);
+        holder.tvNombre.setText(alumno.getNombre());
+        holder.tvMatricula.setText(String.valueOf(alumno.getMatricula()));
+
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvNombre;
+        public TextView tvMatricula;
+
+        public ViewHolder(View view) {
+            super(view);
+            tvNombre = view.findViewById(R.id.tvNombre);
+            tvMatricula = view.findViewById(R.id.tvMatricula);
+        }
     }
 
 }

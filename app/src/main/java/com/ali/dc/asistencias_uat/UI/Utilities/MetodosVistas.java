@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import com.ali.dc.asistencias_uat.UI.Views.Screens.Login;
+import com.ali.dc.asistencias_uat.UI.Views.Screens.Registrar;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -34,16 +36,6 @@ public class MetodosVistas {
                 .setBackgroundTint(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, null))
                 .setAnimationMode(ANIMATION_MODE_SLIDE)
                 .setTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
-                .show();
-    }
-
-    public static void interactiveSnackBar(Activity activity, String mensaje, String actionMsg, View.OnClickListener action) {
-        Snackbar.make(activity.findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_INDEFINITE)
-                .setBackgroundTint(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, null))
-                .setAnimationMode(ANIMATION_MODE_SLIDE)
-                .setTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
-                .setActionTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondaryContainer, null))
-                .setAction(actionMsg, action)
                 .show();
     }
 
@@ -79,6 +71,66 @@ public class MetodosVistas {
                 });
         builder.create();
         builder.show();
+    }
+
+    public static String getFirebaseError(String error) {
+
+        switch (error) {
+
+            case "ERROR_INVALID_CUSTOM_TOKEN":
+                return "El formato del token personalizado es incorrecto. Por favor revise la documentación";
+
+            case "ERROR_CUSTOM_TOKEN_MISMATCH":
+                return "El token personalizado corresponde a una audiencia diferente.";
+
+            case "ERROR_INVALID_CREDENTIAL":
+                return "La credencial de autenticación proporcionada tiene un formato incorrecto o ha caducado.";
+
+            case "ERROR_INVALID_EMAIL":
+                Login.etMailLyt.setError("La dirección de correo electrónico está mal estructurada.");
+                return null;
+
+            case "ERROR_WRONG_PASSWORD":
+                Login.etPasswordLyt.setError("La contraseña es incorrecta ");
+                Login.etPassword.setText("");
+                return null;
+
+            case "ERROR_USER_MISMATCH":
+                return "Las credenciales proporcionadas no corresponden al usuario que inició sesión anteriormente.";
+
+            case "ERROR_REQUIRES_RECENT_LOGIN":
+                return "Esta operación es sensible y requiere autenticación reciente. Inicie sesión nuevamente antes de volver a intentar esta solicitud.";
+
+            case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
+                return "Ya existe una cuenta con la misma dirección de correo electrónico pero diferentes credenciales de inicio de sesión. Inicie sesión con un proveedor asociado a esta dirección de correo electrónico.";
+
+            case "ERROR_EMAIL_ALREADY_IN_USE":
+                return "La dirección de correo electrónico ya está siendo utilizada por otra cuenta.";
+
+            case "ERROR_CREDENTIAL_ALREADY_IN_USE":
+                return "Esta credencial ya está asociada con una cuenta de usuario diferente.";
+
+            case "ERROR_USER_DISABLED":
+                return "La cuenta de usuario ha sido inhabilitada por un administrador.";
+
+            case "ERROR_USER_TOKEN_EXPIRED":
+                return "La credencial del usuario ya no es válida. El usuario debe iniciar sesión nuevamente.";
+
+            case "ERROR_USER_NOT_FOUND":
+                return "No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.";
+
+            case "ERROR_INVALID_USER_TOKEN":
+                return "La credencial del usuario ya no es válida. El usuario debe iniciar sesión nuevamente.";
+
+            case "ERROR_OPERATION_NOT_ALLOWED":
+                return "Esta operación no está permitida. Debes habilitar este servicio en la consola.";
+
+            case "ERROR_WEAK_PASSWORD":
+                Registrar.etPasswordLyt.setError("La contraseña no es válida, debe tener al menos 8 caracteres");
+                return null;
+        }
+
+        return "Error inesperado.";
     }
 
 

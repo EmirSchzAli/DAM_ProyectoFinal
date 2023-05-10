@@ -19,7 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseCallback;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseGetUserCallback;
 import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.Models.Administradores;
@@ -137,7 +137,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 id_tipoAdmin = 3;
             }
             int finalId_tipoAdmin = id_tipoAdmin;
-            Firebase.signUp(mail, password, new FirebaseCallback() {
+            Firebase.signUp(mail, password, new FirebaseGetUserCallback() {
                 @Override
                 public void onSuccess(String uid) {
                     MetodosVistas.basicDialog(Registrar.this,"Usuario creado con exito",

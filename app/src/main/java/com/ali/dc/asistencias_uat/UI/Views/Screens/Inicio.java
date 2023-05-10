@@ -1,17 +1,16 @@
 package com.ali.dc.asistencias_uat.UI.Views.Screens;
 
-import static androidx.core.content.PackageManagerCompat.LOG_TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.WindowCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ import com.ali.dc.asistencias_uat.UI.Views.Fragments.Docentes;
 import com.ali.dc.asistencias_uat.UI.Views.Fragments.Home;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Fragments.Salones;
-import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +60,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         userMailTextHeaderNav = (TextView) headerNavView.findViewById(R.id.userMailTextHeaderNav);
 
         adminDB = new AdministradoresDB(getApplicationContext());
+
         adminDB.getByFirebaseId(uId, new VolleyCallback<Administradores>() {
             @Override
             public void onSuccess(Administradores administradores) {
@@ -69,19 +68,24 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
             }
 
             @Override
-            public void onFailure(String errorMessage) {
-                MetodosVistas.interactiveDialog(
-                        Inicio.this,
-                        errorMessage,
-                        null,
-                        "Regresar",
-                        "",
-                        AppCompatResources.getDrawable(Inicio.this, R.drawable.outline_error),
-                        (dialogInterface, i) -> {
-                            startActivity(new Intent(Inicio.this, Login.class));
-                            Firebase.signOut(Inicio.this);
-                        },
-                        (dialogInterface, i) -> {});
+            public void onFailure(String errorMessage, int erroCode) {
+                if (erroCode == 0 && erroCode != 404){
+                    MetodosVistas.snackBar(Inicio.this, errorMessage);
+                } else {
+                    MetodosVistas.interactiveDialog(
+                            Inicio.this,
+                            errorMessage,
+                            null,
+                            "Regresar",
+                            "",
+                            AppCompatResources.getDrawable(Inicio.this, R.drawable.outline_error),
+                            (dialogInterface, i) -> {
+                                startActivity(new Intent(Inicio.this, Login.class));
+                                Firebase.signOut(Inicio.this);
+                            },
+                            (dialogInterface, i) -> {});
+                }
+
             }
         });
 
@@ -146,6 +150,27 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_inicio, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.actualizar:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

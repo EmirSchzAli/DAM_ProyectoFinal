@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,7 @@ import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
-
-import org.json.JSONArray;
+import com.ali.dc.asistencias_uat.Utilities.Constantes;
 
 import java.util.List;
 
@@ -41,11 +41,12 @@ public class Alumnos extends Fragment {
         alumnoDB.getAll(new VolleyCallback<List<com.ali.dc.asistencias_uat.Models.Alumnos>>() {
             @Override
             public void onSuccess(List<com.ali.dc.asistencias_uat.Models.Alumnos> alumnos) {
+                Log.d(Constantes.TAG, alumnos.toString());
                 alumnosRecyclerView.setAdapter(new AlumnosAdapter(alumnos, getContext()));
             }
 
             @Override
-            public void onFailure(String errorMessage) {
+            public void onFailure(String errorMessage, int erroCode) {
 
             }
         });

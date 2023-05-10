@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Alumnos;
-import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.android.volley.NetworkResponse;
@@ -14,7 +13,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -66,7 +64,7 @@ public class AlumnosDB implements DAO_Alumnos {
                 String errorMsg = "Ocurrio un error en tu petición.";
                 if (response.statusCode == 404) errorMsg = "Administador no esta registrado.";
                 if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
-                callback.onFailure(errorMsg);
+                callback.onFailure(errorMsg, 0);
             }
         });
         queue.add(request);

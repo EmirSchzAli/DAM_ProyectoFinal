@@ -2,9 +2,6 @@ package com.ali.dc.asistencias_uat.UI.Views.Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +10,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.DialogFragment;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.Controller.Firebase;
@@ -21,13 +17,10 @@ import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.UI.Views.Fragments.Home;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONArray;
 
 public class EditarPerfil extends AppCompatDialogFragment {
 
@@ -49,10 +42,7 @@ public class EditarPerfil extends AppCompatDialogFragment {
         builder.setView(view)
                 .setIcon(R.drawable.outline_emoji_people)
                 .setTitle("Editar perfil")
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {}
-                })
+                .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -64,7 +54,7 @@ public class EditarPerfil extends AppCompatDialogFragment {
                             }
 
                             @Override
-                            public void onFailure(String errorMessage) {}
+                            public void onFailure(String errorMessage, int erroCode) {}
                         });
                     }
                 });
@@ -82,7 +72,7 @@ public class EditarPerfil extends AppCompatDialogFragment {
             }
 
             @Override
-            public void onFailure(String errorMessage) {}
+            public void onFailure(String errorMessage, int erroCode) {}
         });
 
         return builder.create();
@@ -100,7 +90,7 @@ public class EditarPerfil extends AppCompatDialogFragment {
             }
 
             @Override
-            public void onFailure(String errorMessage) {
+            public void onFailure(String errorMessage, int erroCode) {
                 MetodosVistas.snackBar((Activity) view.getContext(), errorMessage);
             }
         });

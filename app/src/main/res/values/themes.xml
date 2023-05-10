@@ -122,5 +122,8 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
+    <style name="icon_colors" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">?attr/colorPrimary</item>
+    </style>
 
 </resources>
