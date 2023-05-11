@@ -18,6 +18,10 @@ public class Asistencias extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_asistencias, container, false);
         Inicio.toolbar.setTitle(R.string.fragment_asistencias_label);
+
+        Inicio.fabHome.setVisibility(View.VISIBLE);
+        Inicio.fabHome.setImageResource(R.drawable.outline_qr_code);
+
         return view;
     }
 

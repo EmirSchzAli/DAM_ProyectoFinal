@@ -27,6 +27,7 @@ import com.ali.dc.asistencias_uat.UI.Views.Fragments.Home;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Fragments.Salones;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -38,6 +39,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     private TextView userNameTextHeaderNav, userMailTextHeaderNav;
     private View headerNavView;
     private AdministradoresDB adminDB;
+    public static FloatingActionButton fabHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Inicio");
 
+        fabHome = findViewById(R.id.fabHome);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationDrawer = findViewById(R.id.navigationDrawer);
         headerNavView = navigationDrawer.getHeaderView(0);

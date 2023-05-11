@@ -41,7 +41,7 @@ public class Home extends Fragment {
         updatePassword = view.findViewById(R.id.updatePasswordCard);
         updateMail = view.findViewById(R.id.updateMailCard);
 
-
+        Inicio.fabHome.setVisibility(View.GONE);
 
         FirebaseUser user = Firebase.firebaseAuth.getCurrentUser();
         String uId = user.getUid();

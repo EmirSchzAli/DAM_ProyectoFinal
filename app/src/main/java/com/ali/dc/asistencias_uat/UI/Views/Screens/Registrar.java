@@ -47,7 +47,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
-        SharedPreferences prefs = this.getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences prefs = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         Boolean dialogShown = prefs.getBoolean("dialogShown", false);
         windowInsetsController = MetodosVistas.initWindowController(Registrar.this);
         adminDB = new AdministradoresDB(Registrar.this);

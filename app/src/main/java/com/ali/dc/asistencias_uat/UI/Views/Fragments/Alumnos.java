@@ -38,19 +38,29 @@ public class Alumnos extends Fragment {
         alumnosRecyclerView = view.findViewById(R.id.alumnosRecyclerView);
         alumnosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        Inicio.fabHome.setVisibility(View.VISIBLE);
+        Inicio.fabHome.setImageResource(R.drawable.outline_add);
+        Inicio.fabHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addStudent();
+            }
+        });
+
         alumnoDB.getAll(new VolleyCallback<List<com.ali.dc.asistencias_uat.Models.Alumnos>>() {
             @Override
             public void onSuccess(List<com.ali.dc.asistencias_uat.Models.Alumnos> alumnos) {
                 Log.d(Constantes.TAG, alumnos.toString());
                 alumnosRecyclerView.setAdapter(new AlumnosAdapter(alumnos, getContext()));
             }
-
             @Override
-            public void onFailure(String errorMessage, int erroCode) {
-
-            }
+            public void onFailure(String errorMessage, int erroCode) {}
         });
 
         return view;
+    }
+
+    private void addStudent() {
+
     }
 }

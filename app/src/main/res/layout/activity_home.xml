@@ -52,13 +52,15 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/button4"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHome"
+        style="@style/Widget.Material3.FloatingActionButton.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Button" />
+        android:clickable="true"
+        app:srcCompat="@drawable/outline_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
