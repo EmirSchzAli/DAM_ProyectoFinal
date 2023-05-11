@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseGetUserCallback;
 import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
@@ -144,9 +145,17 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                             "Es necesario verificar la cuenta en su correo electronico regtistrado para poder iniciar sesión.",
                             "De acuerdo",
                             AppCompatResources.getDrawable(getApplicationContext(), R.drawable.outline_check_circle));
-                    Administradores user = new Administradores(uid, num_empleado, nombre, mail, finalId_tipoAdmin);
+                    Administradores user = new Administradores();
+                    user.setFb_id(uid);
+                    user.setNum_empleado(num_empleado);
+                    user.setNombre(nombre);
+                    user.setCorreo(mail);
+                    user.setId_tipoAdmin(finalId_tipoAdmin);
                     Log.d(Constantes.TAG, user.toString());
-                    adminDB.insert(user);
+                    adminDB.insert(user, new BooleanCallback() {
+                        @Override
+                        public void onResponse(boolean value, String message) {}
+                    });
                 }
 
                 @Override

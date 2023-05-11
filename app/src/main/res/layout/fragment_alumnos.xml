@@ -7,7 +7,7 @@
     tools:context=".UI.Views.Fragments.Alumnos">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:overScrollMode="never"
+        android:overScrollMode="ifContentScrolls"
         android:id="@+id/alumnosRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

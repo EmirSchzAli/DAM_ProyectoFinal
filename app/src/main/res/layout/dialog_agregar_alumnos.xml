@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp">
 
     <LinearLayout
@@ -15,57 +15,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="Ingresa los siguientes datos para actualizar tu contraseña:"
+            android:text="Ingresa los siguientes datos del alumno(a):"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etOldPasswordLyt"
+            android:id="@+id/etMatriculaLyt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="30dp"
-            android:hint="Contraseña Actual"
-            android:transitionName="passwordInputTransition"
-            app:errorEnabled="true"
-            app:endIconMode="password_toggle"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="Matricula"
+            android:transitionName="emailInputTransition"
             app:counterEnabled="true"
-            app:counterMaxLength="8"
-            app:startIconDrawable="@drawable/outline_password">
+            app:counterMaxLength="10"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_contact">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etOldPassword"
+                android:id="@+id/etMatricula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLength="8"
-                />
+                android:inputType="number"
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etNewPasswordLyt"
+            android:id="@+id/etNameLyt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="30dp"
-            android:hint="Contraseña Nueva"
-            app:helperText="@string/password_suggestions"
-            android:transitionName="passwordInputTransition"
-            app:errorEnabled="true"
-            app:endIconMode="password_toggle"
+            android:layout_marginBottom="5dp"
             app:counterEnabled="true"
-            app:counterMaxLength="8"
-            app:startIconDrawable="@drawable/outline_password">
+            app:counterMaxLength="50"
+            android:hint="Nombre del alumno(a)"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_person">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNewPassword"
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLength="8"
-                />
+                android:inputType="text"
+                android:maxLength="50"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etLastNameLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:hint="Apellido del alumno(a)"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_house">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="50" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tvWrongPassword"
+            android:id="@+id/tvWrongMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -73,15 +86,13 @@
             android:textColor="?attr/colorError"
             android:visibility="gone" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChangePassword"
+        <Button
+            android:id="@+id/btnAddStudent"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Cambiar contraseña"
-            android:transitionName="buttonLoginTransition" />
-
+            android:text="Agregar alumno" />
 
     </LinearLayout>
 

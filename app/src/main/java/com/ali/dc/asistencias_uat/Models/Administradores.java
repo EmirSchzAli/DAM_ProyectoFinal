@@ -10,17 +10,20 @@ public class Administradores {
     private String nombre;
     private String correo;
     private int id_tipoAdmin;
+    private String tipoAdmin;
 
-    public Administradores() {
-    }
 
-    public Administradores(String fb_id, String num_empleado, String nombre, String correo, int id_tipoAdmin) {
+    public Administradores(int id_admin, String fb_id, String num_empleado, String nombre, String correo, int id_tipoAdmin, String tipoEmpleado) {
+        this.id_admin = id_admin;
         this.fb_id = fb_id;
         this.num_empleado = num_empleado;
         this.nombre = nombre;
         this.correo = correo;
         this.id_tipoAdmin = id_tipoAdmin;
+        this.tipoAdmin = tipoEmpleado;
     }
+
+    public Administradores(){}
 
     public int getId_admin() {
         return id_admin;
@@ -68,6 +71,14 @@ public class Administradores {
 
     public void setId_tipoAdmin(int id_tipoAdmin) {
         this.id_tipoAdmin = id_tipoAdmin;
+    }
+
+    public String getTipoAdmin() {
+        return tipoAdmin;
+    }
+
+    public void setTipoAdmin(String tipoAdmin) {
+        this.tipoAdmin = tipoAdmin;
     }
 
     @NonNull

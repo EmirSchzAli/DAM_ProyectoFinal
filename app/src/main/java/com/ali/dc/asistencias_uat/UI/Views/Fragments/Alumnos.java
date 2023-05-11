@@ -15,6 +15,9 @@ import com.ali.dc.asistencias_uat.Controller.Adapters.AlumnosAdapter;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumnos;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.RestablecerContrasenna;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 
@@ -33,11 +36,6 @@ public class Alumnos extends Fragment {
         View view = inflater.inflate(R.layout.fragment_alumnos, container, false);
         Inicio.toolbar.setTitle(R.string.fragment_alumnos_label);
 
-        alumnoDB = new AlumnosDB(getContext());
-
-        alumnosRecyclerView = view.findViewById(R.id.alumnosRecyclerView);
-        alumnosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         Inicio.fabHome.setVisibility(View.VISIBLE);
         Inicio.fabHome.setImageResource(R.drawable.outline_add);
         Inicio.fabHome.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +45,10 @@ public class Alumnos extends Fragment {
             }
         });
 
+        alumnosRecyclerView = view.findViewById(R.id.alumnosRecyclerView);
+        alumnosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        alumnoDB = new AlumnosDB(getContext());
         alumnoDB.getAll(new VolleyCallback<List<com.ali.dc.asistencias_uat.Models.Alumnos>>() {
             @Override
             public void onSuccess(List<com.ali.dc.asistencias_uat.Models.Alumnos> alumnos) {
@@ -60,7 +62,11 @@ public class Alumnos extends Fragment {
         return view;
     }
 
-    private void addStudent() {
 
+
+    private void addStudent() {
+        AgregarAlumnos agregarAlumnosDialog = new AgregarAlumnos();
+        agregarAlumnosDialog.setCancelable(false);
+        agregarAlumnosDialog.show(getActivity().getSupportFragmentManager(), "addStdDialog");
     }
 }

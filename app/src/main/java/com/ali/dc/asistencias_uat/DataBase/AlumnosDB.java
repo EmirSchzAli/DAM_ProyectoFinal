@@ -3,16 +3,21 @@ package com.ali.dc.asistencias_uat.DataBase;
 import android.content.Context;
 import android.util.Log;
 
+import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Alumnos;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -32,8 +37,38 @@ public class AlumnosDB implements DAO_Alumnos {
     }
 
     @Override
-    public void insert(Alumnos object) {
-
+    public void insert(Alumnos object, BooleanCallback callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Log.d(Constantes.TAG, object.toString());
+        Gson gson = new Gson();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(gson.toJson(object));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        Log.d("JsonObject", jsonObject.toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.STDNS_URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("JsonObject", response.toString());
+                callback.onResponse(true, "Alumno(a) registrado(a).");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onResponse(false, "Sin conexion a internet");
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onResponse(false, "Sin conexion a internet");
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override
@@ -81,7 +116,29 @@ public class AlumnosDB implements DAO_Alumnos {
     }
 
     @Override
-    public void delete(String id, VolleyCallback<Alumnos> callback) {
-
+    public void delete(String id, BooleanCallback callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, Constantes.STDNS_URL + id, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                callback.onResponse(true, "Alumno(a) eliminado(a).");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("VolleyError", error.toString());
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onResponse(false,"Sin conexion a internet");
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    errorMsg = "Ocurrio un error en tu petición.";
+                    if (response.statusCode == 404) errorMsg = "Alumno(a) no encontrado(a).";
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    callback.onResponse(false, errorMsg);
+                }
+            }
+        });
+        queue.add(request);
     }
 }
