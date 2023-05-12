@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.UI.Utilities.CaptureActivityPortraint;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.CaptureActivity;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
@@ -42,11 +44,13 @@ public class Asistencias extends Fragment {
 
     private void scanQR() {
         ScanOptions options = new ScanOptions();
-        options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES);
+        options.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES);
         options.setPrompt("Lector QR");
         options.setCameraId(0);  // Use a specific camera of the device
         options.setBeepEnabled(false);
+        options.setOrientationLocked(false);
         options.setBarcodeImageEnabled(true);
+        options.setCaptureActivity(CaptureActivityPortraint.class);
         barcodeLauncher.launch(options);
     }
 
