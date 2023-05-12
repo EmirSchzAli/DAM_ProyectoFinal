@@ -12,7 +12,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etAsistenciaMatriculaLyt"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -29,54 +28,44 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etAsistenciaNombreLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:hint="Nombre"
+            android:transitionName="emailInputTransition"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_person">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etAsistenciaNombreLyt"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAsistenciaNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:layout_weight="1"
-                android:hint="Nombre"
-                android:transitionName="emailInputTransition"
-                app:errorEnabled="true"
-                app:startIconDrawable="@drawable/outline_person">
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAsistenciaNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etAsistenciaApellidoLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:hint="Apellido"
+            android:transitionName="emailInputTransition"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_house">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etAsistenciaApellidoLyt"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAsistenciaApellido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1"
-                android:hint="Apellido"
-                android:transitionName="emailInputTransition"
-                app:errorEnabled="true"
-                app:startIconDrawable="@drawable/outline_house">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAsistenciaApellido"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/listSalonesLyt"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"

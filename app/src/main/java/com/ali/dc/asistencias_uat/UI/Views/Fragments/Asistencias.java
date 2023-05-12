@@ -27,6 +27,7 @@ import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.CaptureActivityPortraint;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarDocente;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.RegistrarAsistencia;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -91,10 +92,10 @@ public class Asistencias extends Fragment {
                     Bundle args = new Bundle();
                     args.putString("resultQR", result.getContents());
 
-                    EditarDocente editarDocente = new EditarDocente();
-                    editarDocente.setCancelable(false);
-                    editarDocente.setArguments(args);
-                    editarDocente.show(fm, "addCheckDialog");
+                    RegistrarAsistencia registrarAsistencia = new RegistrarAsistencia();
+                    registrarAsistencia.setCancelable(false);
+                    registrarAsistencia.setArguments(args);
+                    registrarAsistencia.show(fm, "addCheckDialog");
                 }
             });
 
