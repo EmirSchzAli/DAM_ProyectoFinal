@@ -53,9 +53,9 @@ public class Asistencias extends Fragment {
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
             result -> {
                 if(result.getContents() == null) {
-                    Log.d("QR RESULT =>", "Cancelado.");
+                    Log.d("QR RESULT =>XX", "Cancelado.");
                 } else {
-                    Log.d("QR RESULT =>", result.getContents());
+                    Log.d("QR RESULT =>XX", result.getContents());
                 }
             });
 
