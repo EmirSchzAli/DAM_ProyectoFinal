@@ -18,6 +18,8 @@ import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.DocentesDB;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumno;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarDocente;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 
@@ -40,7 +42,7 @@ public class Docentes extends Fragment {
         Inicio.fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //addStudent();
+                addDocente();
             }
         });
 
@@ -61,8 +63,13 @@ public class Docentes extends Fragment {
             }
         });
 
-
-
         return view;
     }
+
+    private void addDocente() {
+        AgregarDocente agregarDocente = new AgregarDocente();
+        agregarDocente.setCancelable(false);
+        agregarDocente.show(getActivity().getSupportFragmentManager(), "addTeachDialog");
+    }
+
 }

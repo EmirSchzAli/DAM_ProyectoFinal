@@ -39,7 +39,37 @@ public class DocentesDB implements DAO_Docentes {
 
     @Override
     public void insert(Docentes object, BooleanCallback callback) {
-
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Log.d(Constantes.TAG, object.toString());
+        Gson gson = new Gson();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(gson.toJson(object));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        Log.d("JsonObject", jsonObject.toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.TEACH_URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("JsonObject", response.toString());
+                callback.onResponse(true, "Docente registrado.");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onResponse(false, "Sin conexion a internet");
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onResponse(false, "Sin conexion a internet");
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override
@@ -85,11 +115,71 @@ public class DocentesDB implements DAO_Docentes {
 
     @Override
     public void getById(String id, VolleyCallback<Docentes> callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Gson gson = new Gson();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.TEACH_URL + id, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Docentes docentes = gson.fromJson(String.valueOf(response), Docentes.class);
+                Log.d("Objeto response =>", docentes.toString());
+                callback.onSuccess(docentes);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 404){
+                        errorMsg = "Docente no esta registrado.";
+                    } else if (response.statusCode == 500) {
+                        errorMsg = "Error en el servidor. Intente mas tarde.";
+                    }
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onFailure(errorMsg, 0);
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override
     public void update(Docentes object, VolleyCallback<Docentes> callback) {
-
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Gson gson = new Gson();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(gson.toJson(object));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, Constantes.TEACH_URL + object.getId_docente(), jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("JsonObject", response.toString());
+                Docentes docentes = gson.fromJson(String.valueOf(response), Docentes.class);
+                Log.d("Objeto response =>", docentes.toString());
+                callback.onSuccess(docentes);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("VolleyError", error.toString());
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    errorMsg = "Ocurrio un error en tu petición.";
+                    if (response.statusCode == 404) errorMsg = "Docente no encontrado.";
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    callback.onFailure(errorMsg, response.statusCode);
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override

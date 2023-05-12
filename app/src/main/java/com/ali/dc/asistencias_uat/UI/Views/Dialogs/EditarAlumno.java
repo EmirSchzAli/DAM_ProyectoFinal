@@ -120,21 +120,21 @@ public class EditarAlumno extends AppCompatDialogFragment {
         Boolean band = true;
 
         if (etMatricula.getText().toString().isEmpty()) {
-            etMatriculaLyt.setError("Matricula del alumno(a) necesario(a)");
+            etMatriculaLyt.setError("Matricula del alumno(a) necesario");
             band = false;
         } else {
             etMatriculaLyt.setError(null);
         }
 
         if (etName.getText().toString().isEmpty()) {
-            etNameLyt.setError("Nombre del alumno(a) necesario(a)");
+            etNameLyt.setError("Nombre del alumno(a) necesario");
             band = false;
         } else {
             etNameLyt.setError(null);
         }
 
         if (etLastName.getText().toString().isEmpty()) {
-            etLastNameLyt.setError("Apellido del alumno(a) necesario(a)");
+            etLastNameLyt.setError("Apellido del alumno(a) necesario");
             band = false;
         } else {
             etLastNameLyt.setError(null);

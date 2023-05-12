@@ -1,5 +1,7 @@
 package com.ali.dc.asistencias_uat.UI.Views.Screens;
 
+import static com.ali.dc.asistencias_uat.Controller.Firebase.firebaseAuth;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.WindowCompat;
@@ -21,6 +23,7 @@ import android.widget.ImageButton;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseGetUserCallback;
+import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.Models.Administradores;
@@ -30,6 +33,12 @@ import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Registrar extends AppCompatActivity implements View.OnClickListener{
 
@@ -72,6 +81,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+
         String[] kindsUsers = getResources().getStringArray(R.array.kindUsers);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
                 com.google.android.material.R.layout.support_simple_spinner_dropdown_item,

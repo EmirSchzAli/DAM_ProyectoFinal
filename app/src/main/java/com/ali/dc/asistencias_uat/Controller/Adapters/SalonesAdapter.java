@@ -17,41 +17,43 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.DataBase.DocentesDB;
+import com.ali.dc.asistencias_uat.DataBase.SalonesDB;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.Models.Docentes;
+import com.ali.dc.asistencias_uat.Models.Salones;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarAlumno;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarDocente;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarSalon;
 
 import java.util.List;
 
-public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHolder> {
+public class SalonesAdapter extends RecyclerView.Adapter<SalonesAdapter.ViewHolder> {
 
-    private List<Docentes> docentesList;
+    private List<Salones> salonesList;
     private Context mContext;
 
-    public DocentesAdapter(List<Docentes> docentesList, Context mContext) {
-        this.docentesList = docentesList;
+    public SalonesAdapter(List<Salones> salonesList, Context mContext) {
+        this.salonesList = salonesList;
         this.mContext = mContext;
     }
 
     @Override
     public int getItemCount() {
-        return docentesList.size();
+        return salonesList.size();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()). inflate(R.layout.recycler_item_docentes, parent, false);
+        View view = LayoutInflater.from(parent.getContext()). inflate(R.layout.recycler_item_salones, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Docentes docente = docentesList.get(position);
-        holder.tvNombre.setText(docente.getNombre());
-        holder.tvNumeroEmpleado.setText(docente.getNum_empleado());
+        Salones salones = salonesList.get(position);
+        holder.tvNombre.setText(salones.getNombre());
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +62,12 @@ public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHo
                 FragmentManager fm = activity.getSupportFragmentManager();
 
                 Bundle args = new Bundle();
-                args.putString("id_docente", String.valueOf(docente.getId_docente()));
+                args.putString("id_salon", String.valueOf(salones.getId_salon()));
 
-                EditarDocente editarDocente = new EditarDocente();
-                editarDocente.setCancelable(false);
-                editarDocente.setArguments(args);
-                editarDocente.show(fm, "editTeachDialog");
+                EditarSalon editarSalon = new EditarSalon();
+                editarSalon.setCancelable(false);
+                editarSalon.setArguments(args);
+                editarSalon.show(fm, "editCRoomDialog");
             }
         });
 
@@ -73,13 +75,13 @@ public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 MetodosVistas.interactiveDialog((Activity) mContext,
-                        "¿Seguro deseas eliminar a " + docente.getNombre() + "?",
+                        "¿Seguro deseas eliminar el salón '" + salones.getNombre() + "'?",
                         "Estos cambios no podrán ser restaurados.",
                         "Eliminar",
                         "Cancelar",
                         AppCompatResources.getDrawable(mContext, R.drawable.outline_delete),
                         (dialogInterface, i) -> {
-                            deleteTeacher(docente.getId_docente());
+                            deleteSalon(salones.getId_salon());
                         },
                         null);
             }
@@ -87,9 +89,9 @@ public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHo
 
     }
 
-    private void deleteTeacher(int id_docente) {
-        DocentesDB docentesDB = new DocentesDB(mContext);
-        docentesDB.delete(String.valueOf(id_docente), new BooleanCallback() {
+    private void deleteSalon(int id_salon) {
+        SalonesDB salonesDB = new SalonesDB(mContext);
+        salonesDB.delete(String.valueOf(id_salon), new BooleanCallback() {
             @Override
             public void onResponse(boolean value, String message) {
                 if (value) {
@@ -103,15 +105,13 @@ public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNombre;
-        public TextView tvNumeroEmpleado;
         public Button btnDelete, btnEdit;
 
         public ViewHolder(View view) {
             super(view);
-            tvNombre = view.findViewById(R.id.tvDocenteNombre);
-            tvNumeroEmpleado = view.findViewById(R.id.tvDocenteNumemEmpleados);
-            btnDelete = view.findViewById(R.id.btnDeleteDocente);
-            btnEdit = view.findViewById(R.id.btnEditDocente);
+            tvNombre = view.findViewById(R.id.tvSalonNombre);
+            btnDelete = view.findViewById(R.id.btnDeleteSalon);
+            btnEdit = view.findViewById(R.id.btnEditSalon);
         }
     }
 

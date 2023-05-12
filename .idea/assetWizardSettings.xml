@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/house/outline_house_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/door_front/outline_door_front_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="outline_house" />
+                            <entry key="outputName" value="outline_door_front" />
                             <entry key="sourceFile" value="C:\Users\EMIR\Downloads\undraw_page_not_found_re_e9o6.svg" />
                           </map>
                         </option>

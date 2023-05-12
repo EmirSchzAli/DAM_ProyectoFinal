@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Views.Fragments.Alumnos">
+    tools:context="UI.Views.Fragments.Docentes">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:overScrollMode="ifContentScrolls"
         android:id="@+id/docentesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="50dp"
+        android:overScrollMode="ifContentScrolls" />
 
 </RelativeLayout>

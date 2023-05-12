@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
-import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Alumnos;
-import com.ali.dc.asistencias_uat.Models.Administradores;
-import com.ali.dc.asistencias_uat.Models.Alumnos;
+import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Salones;
+import com.ali.dc.asistencias_uat.Models.Docentes;
+import com.ali.dc.asistencias_uat.Models.Salones;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
@@ -29,16 +29,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlumnosDB implements DAO_Alumnos {
+public class SalonesDB implements DAO_Salones {
 
-    private Context context;
+    Context context;
 
-    public AlumnosDB(Context context) {
+    public SalonesDB(Context context){
         this.context = context;
     }
 
     @Override
-    public void insert(Alumnos object, BooleanCallback callback) {
+    public void insert(Salones object, BooleanCallback callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         Log.d(Constantes.TAG, object.toString());
         Gson gson = new Gson();
@@ -49,11 +49,11 @@ public class AlumnosDB implements DAO_Alumnos {
             throw new RuntimeException(e);
         }
         Log.d("JsonObject", jsonObject.toString());
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.STDNS_URL, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.CROOM_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("JsonObject", response.toString());
-                callback.onResponse(true, "Alumno(a) registrado(a).");
+                callback.onResponse(true, "Salón de clase registrado.");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -73,24 +73,24 @@ public class AlumnosDB implements DAO_Alumnos {
     }
 
     @Override
-    public void getAll(VolleyCallback<List<Alumnos>> callback) {
+    public void getAll(VolleyCallback<List<Salones>> callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         Gson gson = new Gson();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Constantes.STDNS_URL, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Constantes.CROOM_URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                List<Alumnos> alumnosList = new ArrayList<>();
+                List<Salones> salonesList = new ArrayList<>();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         Gson gson = new Gson();
-                        Alumnos alumnos = gson.fromJson(jsonObject.toString(), Alumnos.class);
-                        alumnosList.add(alumnos);
+                        Salones salones = gson.fromJson(jsonObject.toString(), Salones.class);
+                        salonesList.add(salones);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                callback.onSuccess(alumnosList);
+                callback.onSuccess(salonesList);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -101,7 +101,7 @@ public class AlumnosDB implements DAO_Alumnos {
                 } else if (error instanceof ServerError) {
                     NetworkResponse response = error.networkResponse;
                     if (response.statusCode == 404){
-                        errorMsg = "Alumnos no encontrados.";
+                        errorMsg = "Salones no encontrados.";
                     } else if (response.statusCode == 500) {
                         errorMsg = "Error en el servidor. Intente mas tarde.";
                     }
@@ -114,15 +114,15 @@ public class AlumnosDB implements DAO_Alumnos {
     }
 
     @Override
-    public void getById(String id, VolleyCallback<Alumnos> callback) {
+    public void getById(String id, VolleyCallback<Salones> callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         Gson gson = new Gson();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.STDNS_URL + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.CROOM_URL + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Alumnos alumnos = gson.fromJson(String.valueOf(response), Alumnos.class);
-                Log.d("Objeto response =>", alumnos.toString());
-                callback.onSuccess(alumnos);
+                Salones salones = gson.fromJson(String.valueOf(response), Salones.class);
+                Log.d("Objeto response =>", salones.toString());
+                callback.onSuccess(salones);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -133,7 +133,7 @@ public class AlumnosDB implements DAO_Alumnos {
                 } else if (error instanceof ServerError) {
                     NetworkResponse response = error.networkResponse;
                     if (response.statusCode == 404){
-                        errorMsg = "Alumno no esta registrado.";
+                        errorMsg = "Salón de clase no esta registrado.";
                     } else if (response.statusCode == 500) {
                         errorMsg = "Error en el servidor. Intente mas tarde.";
                     }
@@ -146,7 +146,7 @@ public class AlumnosDB implements DAO_Alumnos {
     }
 
     @Override
-    public void update(Alumnos object, VolleyCallback<Alumnos> callback) {
+    public void update(Salones object, VolleyCallback<Salones> callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         Gson gson = new Gson();
         JSONObject jsonObject;
@@ -155,13 +155,13 @@ public class AlumnosDB implements DAO_Alumnos {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, Constantes.STDNS_URL + object.getId_alumno(), jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, Constantes.CROOM_URL + object.getId_salon(), jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("JsonObject", response.toString());
-                    Alumnos alumnos = gson.fromJson(String.valueOf(response), Alumnos.class);
-                Log.d("Objeto response =>", alumnos.toString());
-                callback.onSuccess(alumnos);
+                Salones salones = gson.fromJson(String.valueOf(response), Salones.class);
+                Log.d("Objeto response =>", salones.toString());
+                callback.onSuccess(salones);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -173,7 +173,7 @@ public class AlumnosDB implements DAO_Alumnos {
                 } else if (error instanceof ServerError) {
                     NetworkResponse response = error.networkResponse;
                     errorMsg = "Ocurrio un error en tu petición.";
-                    if (response.statusCode == 404) errorMsg = "Administador no encontrado.";
+                    if (response.statusCode == 404) errorMsg = "Salón de clase no encontrado.";
                     if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
                     callback.onFailure(errorMsg, response.statusCode);
                 }
@@ -185,10 +185,10 @@ public class AlumnosDB implements DAO_Alumnos {
     @Override
     public void delete(String id, BooleanCallback callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, Constantes.STDNS_URL + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, Constantes.CROOM_URL + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                callback.onResponse(true, "Alumno(a) eliminado(a).");
+                callback.onResponse(true, "Salón de clase eliminado.");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -196,11 +196,11 @@ public class AlumnosDB implements DAO_Alumnos {
                 Log.d("VolleyError", error.toString());
                 String errorMsg = "";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    callback.onResponse(false,"Sin conexion a internet");
+                    callback.onResponse(false,"Sin conexion a internet.");
                 } else if (error instanceof ServerError) {
                     NetworkResponse response = error.networkResponse;
                     errorMsg = "Ocurrio un error en tu petición.";
-                    if (response.statusCode == 404) errorMsg = "Alumno(a) no encontrado(a).";
+                    if (response.statusCode == 404) errorMsg = "Salón de clase no encontrado.";
                     if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
                     callback.onResponse(false, errorMsg);
                 }
