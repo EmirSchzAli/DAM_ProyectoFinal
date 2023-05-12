@@ -146,6 +146,38 @@ public class DocentesDB implements DAO_Docentes {
     }
 
     @Override
+    public void getByNumEmplado(String num_empleado, VolleyCallback<Docentes> callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Gson gson = new Gson();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.TEACH_URL + "num_empleado/" + num_empleado, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Docentes docentes = gson.fromJson(String.valueOf(response), Docentes.class);
+                Log.d("Objeto response =>", docentes.toString());
+                callback.onSuccess(docentes);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 404){
+                        errorMsg = "Alumno no esta registrado.";
+                    } else if (response.statusCode == 500) {
+                        errorMsg = "Error en el servidor. Intente mas tarde.";
+                    }
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onFailure(errorMsg, 0);
+                }
+            }
+        });
+        queue.add(request);
+    }
+
+    @Override
     public void update(Docentes object, VolleyCallback<Docentes> callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         Gson gson = new Gson();
@@ -208,4 +240,5 @@ public class DocentesDB implements DAO_Docentes {
         });
         queue.add(request);
     }
+
 }
