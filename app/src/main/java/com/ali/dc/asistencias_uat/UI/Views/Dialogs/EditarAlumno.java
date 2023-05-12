@@ -2,7 +2,6 @@ package com.ali.dc.asistencias_uat.UI.Views.Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,25 +15,21 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
-import com.ali.dc.asistencias_uat.Controller.Firebase;
-import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseUser;
 
-public class AgregarAlumnos extends AppCompatDialogFragment {
+public class EditarAlumno extends AppCompatDialogFragment {
 
     private TextInputLayout etMatriculaLyt, etNameLyt, etLastNameLyt;
     private TextInputEditText etMatricula, etName, etLastName;
     private TextView tvWrongMessage;
-    private Button btnAddStudent;
+    private Button btnEditStudent;
     AlumnosDB alumnosDB;
 
     @NonNull
@@ -43,12 +38,16 @@ public class AgregarAlumnos extends AppCompatDialogFragment {
 
         alumnosDB = new AlumnosDB(getContext());
 
+        Bundle mArgs = getArguments();
+        String id_alumno = mArgs.getString("id_alumno");
+        Log.d("Id retornado =>", id_alumno);
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_agregar_alumnos, null);
+        View view = inflater.inflate(R.layout.dialog_editar_alumno, null);
         builder.setView(view)
-                .setIcon(R.drawable.outline_students)
-                .setTitle("Editar perfil")
+                .setIcon(R.drawable.outline_edit)
+                .setTitle("Editar alumno")
                 .setNegativeButton("Cancelar", null);
 
         etMatriculaLyt = view.findViewById(R.id.etMatriculaLyt);
@@ -57,38 +56,61 @@ public class AgregarAlumnos extends AppCompatDialogFragment {
         etName = view.findViewById(R.id.etName);
         etLastNameLyt = view.findViewById(R.id.etLastNameLyt);
         etLastName = view.findViewById(R.id.etLastName);
-        btnAddStudent = view.findViewById(R.id.btnAddStudent);
+        btnEditStudent = view.findViewById(R.id.btnEditStudent);
         tvWrongMessage = view.findViewById(R.id.tvWrongMessage);
 
-        btnAddStudent.setOnClickListener(new View.OnClickListener() {
+        btnEditStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStudent();
+                alumnosDB.getById(id_alumno, new VolleyCallback<Alumnos>() {
+                    @Override
+                    public void onSuccess(Alumnos alumnos) {
+                        editStudent(alumnos, v);
+                    }
+                    @Override
+                    public void onFailure(String errorMessage, int erroCode) {
+                        tvWrongMessage.setText(errorMessage);
+                        tvWrongMessage.setVisibility(View.VISIBLE);
+                    }
+                });
             }
+        });
+
+
+        alumnosDB.getById(id_alumno, new VolleyCallback<Alumnos>() {
+            @Override
+            public void onSuccess(Alumnos alumnos) {
+                Log.d("Alumno capturado =>", alumnos.toString());
+                etMatricula.setText(alumnos.getMatricula());
+                etName.setText(alumnos.getNombre());
+                etLastName.setText(alumnos.getApellido());
+            }
+            @Override
+            public void onFailure(String errorMessage, int erroCode) {}
         });
 
         return builder.create();
     }
 
-    private void addStudent() {
+    private void editStudent(Alumnos alumno, View view) {
         if (validarCampos()){
-            String matricula = etMatricula.getText().toString();
-            String name = etName.getText().toString();
-            String lastName = etLastName.getText().toString();
-            Alumnos alumno = new Alumnos();
-            alumno.setMatricula(matricula);
-            alumno.setNombre(name);
-            alumno.setApellido(lastName);
-            alumnosDB.insert(alumno, new BooleanCallback() {
+            Alumnos alumnoReq = new Alumnos();
+            alumnoReq.setId_alumno(alumno.getId_alumno());
+            alumnoReq.setMatricula(etMatricula.getText().toString());
+            alumnoReq.setNombre(etName.getText().toString());
+            alumnoReq.setApellido(etLastName.getText().toString());
+
+            alumnosDB.update(alumnoReq, new VolleyCallback<Alumnos>() {
                 @Override
-                public void onResponse(boolean value, String message) {
-                    if (!value){
-                        tvWrongMessage.setText(message);
-                        tvWrongMessage.setVisibility(View.VISIBLE);
-                    } else {
-                        MetodosVistas.snackBar((Activity) getContext(), message);
-                        dismiss();
-                    }
+                public void onSuccess(Alumnos alumnos) {
+                    MetodosVistas.snackBar(getActivity(), "Alumno(a) actualizado(a) con exito.");
+                    dismiss();
+                }
+
+                @Override
+                public void onFailure(String errorMessage, int erroCode) {
+                    tvWrongMessage.setText(errorMessage);
+                    tvWrongMessage.setVisibility(View.VISIBLE);
                 }
             });
         }

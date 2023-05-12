@@ -1,5 +1,6 @@
 package com.ali.dc.asistencias_uat.UI.Views.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import com.ali.dc.asistencias_uat.Controller.Firebase;
 import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarPerfil;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.RestablecerContrasenna;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
@@ -55,7 +57,11 @@ public class Home extends Fragment {
             }
 
             @Override
-            public void onFailure(String errorMessage, int erroCode) {}
+            public void onFailure(String errorMessage, int erroCode) {
+                if ( erroCode != 404) {
+                    MetodosVistas.snackBar((Activity) view.getContext(), errorMessage);
+                }
+            }
         });
 
         editUserCard.setOnClickListener(new View.OnClickListener() {

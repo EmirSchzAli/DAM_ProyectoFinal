@@ -139,8 +139,8 @@ public class AdministradoresDB implements DAO_Administradores {
     }
 
     @Override
-    public Administradores getById(String id, VolleyCallback<Administradores> callback) {
-        return null;
+    public void getById(String id, VolleyCallback<Administradores> callback) {
+
     }
 
     @Override
@@ -164,12 +164,17 @@ public class AdministradoresDB implements DAO_Administradores {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.toString());
-                NetworkResponse response = error.networkResponse;
-                String errorMsg = "Ocurrio un error en tu petición.";
-                if (response.statusCode == 404) errorMsg = "Administador no esta registrado.";
-                if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
-                callback.onFailure(errorMsg, 0);
+                Log.d("VolleyError", error.toString());
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    errorMsg = "Ocurrio un error en tu petición.";
+                    if (response.statusCode == 404) errorMsg = "Administador no encontrado.";
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    callback.onFailure(errorMsg, response.statusCode);
+                }
             }
         });
         queue.add(request);

@@ -1,5 +1,6 @@
 package com.ali.dc.asistencias_uat.UI.Views.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,8 +17,7 @@ import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumnos;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.RestablecerContrasenna;
+import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumno;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 
@@ -56,17 +56,19 @@ public class Alumnos extends Fragment {
                 alumnosRecyclerView.setAdapter(new AlumnosAdapter(alumnos, getContext()));
             }
             @Override
-            public void onFailure(String errorMessage, int erroCode) {}
+            public void onFailure(String errorMessage, int erroCode) {
+                MetodosVistas.snackBar((Activity) view.getContext(), errorMessage);
+            }
         });
 
         return view;
     }
 
-
-
     private void addStudent() {
-        AgregarAlumnos agregarAlumnosDialog = new AgregarAlumnos();
-        agregarAlumnosDialog.setCancelable(false);
-        agregarAlumnosDialog.show(getActivity().getSupportFragmentManager(), "addStdDialog");
+        AgregarAlumno agregarAlumnoDialog = new AgregarAlumno();
+        agregarAlumnoDialog.setCancelable(false);
+        agregarAlumnoDialog.show(getActivity().getSupportFragmentManager(), "addStdDialog");
     }
+
+
 }

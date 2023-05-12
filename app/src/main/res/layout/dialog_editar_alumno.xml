@@ -15,20 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="Edita tus datos:"
+            android:text="Edita los datos del alumno(a):"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etMatriculaLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="5dp"
             android:hint="Matricula"
             android:transitionName="emailInputTransition"
             app:counterEnabled="true"
             app:counterMaxLength="10"
             app:errorEnabled="true"
-            app:helperText="Ingrese su matricula de empleado"
             app:startIconDrawable="@drawable/outline_contact">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -40,21 +39,61 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etUserNameLyt"
+            android:id="@+id/etNameLyt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Nombre y Apellido"
-            android:transitionName="emailInputTransition"
+            android:layout_marginBottom="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            android:hint="Nombre del alumno(a)"
             app:errorEnabled="true"
-            app:helperText="@string/userName_suggestions"
             app:startIconDrawable="@drawable/outline_person">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUserName"
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="text"
+                android:maxLength="50"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etLastNameLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:hint="Apellido del alumno(a)"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_house">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="50" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvWrongMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textAlignment="center"
+            android:textColor="?attr/colorError"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnEditStudent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Editar alumno" />
+
     </LinearLayout>
 
 </RelativeLayout>

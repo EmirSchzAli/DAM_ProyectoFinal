@@ -1,5 +1,6 @@
 package com.ali.dc.asistencias_uat.UI.Views.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import com.ali.dc.asistencias_uat.Controller.Adapters.AlumnosAdapter;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.R;
+import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 
@@ -44,10 +46,9 @@ public class Administradores extends Fragment {
                 Log.d(Constantes.TAG, administradores.toString());
                 adminsRecyclerView.setAdapter(new AdministradoresAdapter(administradores, getContext()));
             }
-
             @Override
             public void onFailure(String errorMessage, int erroCode) {
-
+                MetodosVistas.snackBar((Activity) view.getContext(), errorMessage);
             }
         });
 

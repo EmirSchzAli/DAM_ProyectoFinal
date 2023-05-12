@@ -6,6 +6,7 @@ import android.util.Log;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.VolleyCallback;
 import com.ali.dc.asistencias_uat.DataBase.DAO.DAO_Alumnos;
+import com.ali.dc.asistencias_uat.Models.Administradores;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.android.volley.NetworkResponse;
@@ -94,25 +95,91 @@ public class AlumnosDB implements DAO_Alumnos {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("VolleyError", error.toString());
-                NetworkResponse response = error.networkResponse;
-                String errorMsg = "Ocurrio un error en tu petición.";
-                if (response.statusCode == 404) errorMsg = "Administador no esta registrado.";
-                if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
-                callback.onFailure(errorMsg, 0);
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 404){
+                        errorMsg = "Alumnos no encontrados.";
+                    } else if (response.statusCode == 500) {
+                        errorMsg = "Error en el servidor. Intente mas tarde.";
+                    }
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onFailure(errorMsg, 0);
+                }
             }
         });
         queue.add(request);
     }
 
     @Override
-    public Alumnos getById(String id, VolleyCallback<Alumnos> callback) {
-        return null;
+    public void getById(String id, VolleyCallback<Alumnos> callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Gson gson = new Gson();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.STDNS_URL + id, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Alumnos alumnos = gson.fromJson(String.valueOf(response), Alumnos.class);
+                Log.d("Objeto response =>", alumnos.toString());
+                callback.onSuccess(alumnos);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    if (response.statusCode == 404){
+                        errorMsg = "Administador no esta registrado.";
+                    } else if (response.statusCode == 500) {
+                        errorMsg = "Error en el servidor. Intente mas tarde.";
+                    }
+                    Log.d("VolleyError", String.valueOf(response.statusCode));
+                    callback.onFailure(errorMsg, 0);
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override
     public void update(Alumnos object, VolleyCallback<Alumnos> callback) {
-
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Gson gson = new Gson();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(gson.toJson(object));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, Constantes.STDNS_URL + object.getId_alumno(), jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("JsonObject", response.toString());
+                    Alumnos alumnos = gson.fromJson(String.valueOf(response), Alumnos.class);
+                Log.d("Objeto response =>", alumnos.toString());
+                callback.onSuccess(alumnos);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("VolleyError", error.toString());
+                String errorMsg = "";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    callback.onFailure("Sin conexion a internet", 0);
+                } else if (error instanceof ServerError) {
+                    NetworkResponse response = error.networkResponse;
+                    errorMsg = "Ocurrio un error en tu petición.";
+                    if (response.statusCode == 404) errorMsg = "Administador no encontrado.";
+                    if (response.statusCode == 500) errorMsg = "Error en el servidor. Intente mas tarde.";
+                    callback.onFailure(errorMsg, response.statusCode);
+                }
+            }
+        });
+        queue.add(request);
     }
 
     @Override

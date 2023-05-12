@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +29,7 @@ import com.ali.dc.asistencias_uat.UI.Views.Fragments.Docentes;
 import com.ali.dc.asistencias_uat.UI.Views.Fragments.Home;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
 import com.ali.dc.asistencias_uat.UI.Views.Fragments.Salones;
+import com.ali.dc.asistencias_uat.Utilities.Constantes;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -39,13 +43,14 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     private TextView userNameTextHeaderNav, userMailTextHeaderNav;
     private View headerNavView;
     private AdministradoresDB adminDB;
+    public static String fragmentTAG = "";
     public static FloatingActionButton fabHome;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tool_nav_drawer_layout);
-
 
         FirebaseUser user = Firebase.firebaseAuth.getCurrentUser();
         String uId = user.getUid();
@@ -99,7 +104,8 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
+            fragmentTAG = "inicioFrag";
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home(), "inicioFrag").commit();
             navigationDrawer.setCheckedItem(R.id.nav_home);
         }
     }
@@ -114,27 +120,33 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home()).commit();
+                fragmentTAG = "inicioFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Home(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_asistencia:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Asistencias()).commit();
+                fragmentTAG = "asistenciasFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Asistencias(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_teachers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Docentes()).commit();
+                fragmentTAG = "docentesFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Docentes(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_students:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Alumnos()).commit();
+                fragmentTAG = "alumnosFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Alumnos(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_classrooms:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Salones()).commit();
+                fragmentTAG = "salonesFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new Salones(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_admins:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new com.ali.dc.asistencias_uat.UI.Views.Fragments.Administradores()).commit();
+                fragmentTAG = "administradoresFrag";
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new com.ali.dc.asistencias_uat.UI.Views.Fragments.Administradores(), fragmentTAG).commit();
                 break;
 
             case R.id.nav_signout:
@@ -167,9 +179,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.actualizar:
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -9,7 +9,7 @@ public interface DAO<Object,K> {
 
     void insert(Object object, BooleanCallback callback);
     void getAll(VolleyCallback<List<Object>> callback);
-    Object getById(K id, VolleyCallback<Object> callback);
+    void getById(K id, VolleyCallback<Object> callback);
     void update(Object object, VolleyCallback<Object> callback);
     void delete(K id, BooleanCallback callback);
 

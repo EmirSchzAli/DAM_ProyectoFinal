@@ -9,51 +9,48 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
-import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
+import com.ali.dc.asistencias_uat.DataBase.DocentesDB;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
+import com.ali.dc.asistencias_uat.Models.Docentes;
 import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumno;
 import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarAlumno;
 
 import java.util.List;
 
-public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHolder> {
+public class DocentesAdapter extends RecyclerView.Adapter<DocentesAdapter.ViewHolder> {
 
-    private List<Alumnos> alumnosList;
+    private List<Docentes> docentesList;
     private Context mContext;
 
-    public AlumnosAdapter(List<Alumnos> alumnosList, Context mContext) {
-        this.alumnosList = alumnosList;
+    public DocentesAdapter(List<Docentes> docentesList, Context mContext) {
+        this.docentesList = docentesList;
         this.mContext = mContext;
     }
 
     @Override
     public int getItemCount() {
-        return alumnosList.size();
+        return docentesList.size();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()). inflate(R.layout.recycler_item_alumnos, parent, false);
+        View view = LayoutInflater.from(parent.getContext()). inflate(R.layout.recycler_item_docentes, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Alumnos alumno = alumnosList.get(position);
-        holder.tvNombre.setText(alumno.getNombre() + " " + alumno.getApellido());
-        holder.tvMatricula.setText(alumno.getMatricula());
+        Docentes docente = docentesList.get(position);
+        holder.tvNombre.setText(docente.getNombre());
+        holder.tvNumeroEmpleado.setText(docente.getNum_empleado());
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +59,12 @@ public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHold
                 FragmentManager fm = activity.getSupportFragmentManager();
 
                 Bundle args = new Bundle();
-                args.putString("id_alumno", String.valueOf(alumno.getId_alumno()));
+                args.putString("id_docente", String.valueOf(docente.getId_docente()));
 
                 EditarAlumno editarAlumno = new EditarAlumno();
                 editarAlumno.setCancelable(false);
                 editarAlumno.setArguments(args);
-                editarAlumno.show(fm, "editStdDialog");
+                editarAlumno.show(fm, "editTeachDialog");
             }
         });
 
@@ -75,13 +72,13 @@ public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 MetodosVistas.interactiveDialog((Activity) mContext,
-                        "¿Seguro deseas eliminar a " + alumno.getNombre() + "?",
+                        "¿Seguro deseas eliminar a " + docente.getNombre() + "?",
                         "Estos cambios no podrán ser restaurados.",
                         "Eliminar",
                         "Cancelar",
                         AppCompatResources.getDrawable(mContext, R.drawable.outline_delete),
                         (dialogInterface, i) -> {
-                            deleteStudent(alumno.getId_alumno());
+                            deleteTeacher(docente.getId_docente());
                         },
                         null);
             }
@@ -89,9 +86,9 @@ public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHold
 
     }
 
-    private void deleteStudent(int id_alumno) {
-        AlumnosDB alumnoDB = new AlumnosDB(mContext);
-        alumnoDB.delete(String.valueOf(id_alumno), new BooleanCallback() {
+    private void deleteTeacher(int id_docente) {
+        DocentesDB docentesDB = new DocentesDB(mContext);
+        docentesDB.delete(String.valueOf(id_docente), new BooleanCallback() {
             @Override
             public void onResponse(boolean value, String message) {
                 if (value) {
@@ -105,15 +102,15 @@ public class AlumnosAdapter extends RecyclerView.Adapter<AlumnosAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNombre;
-        public TextView tvMatricula;
+        public TextView tvNumeroEmpleado;
         public Button btnDelete, btnEdit;
 
         public ViewHolder(View view) {
             super(view);
-            tvNombre = view.findViewById(R.id.tvNombre);
-            tvMatricula = view.findViewById(R.id.tvMatricula);
-            btnDelete = view.findViewById(R.id.btnDelete);
-            btnEdit = view.findViewById(R.id.btnEdit);
+            tvNombre = view.findViewById(R.id.tvDocenteNombre);
+            tvNumeroEmpleado = view.findViewById(R.id.tvDocenteNumemEmpleados);
+            btnDelete = view.findViewById(R.id.btnDeleteDocente);
+            btnEdit = view.findViewById(R.id.btnEditDocente);
         }
     }
 
