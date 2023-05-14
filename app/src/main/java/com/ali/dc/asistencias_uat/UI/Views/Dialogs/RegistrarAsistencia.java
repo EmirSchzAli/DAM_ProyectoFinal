@@ -37,7 +37,7 @@ public class RegistrarAsistencia extends AppCompatDialogFragment {
 
     private TextInputLayout etAsistenciaMatriculaLyt, etAsistenciaNombreLyt, etAsistenciaApellidoLyt, listSalonesLyt;
     private TextInputEditText etAsistenciaMatricula, etAsistenciaNombre, etAsistenciaApellido;
-    private AutoCompleteTextView listSalones;
+    //private AutoCompleteTextView listSalones;
     private Button btnRegistarAsistencia;
 
     @NonNull
@@ -66,8 +66,31 @@ public class RegistrarAsistencia extends AppCompatDialogFragment {
         etAsistenciaMatricula = view.findViewById(R.id.etAsistenciaMatricula);
         etAsistenciaNombre = view.findViewById(R.id.etAsistenciaNombre);
         etAsistenciaApellido = view.findViewById(R.id.etAsistenciaApellido);
-        listSalones = view.findViewById(R.id.listSalones);
+        final AutoCompleteTextView listSalones = view.findViewById(R.id.listSalones);
         btnRegistarAsistencia = view.findViewById(R.id.btnRegistarAsistencia);
+
+        salonesDB.getAll(new VolleyCallback<List<Salones>>() {
+            @Override
+            public void onSuccess(List<Salones> salones) {
+                ArrayList<String> valores = new ArrayList<String>();
+                for (com.ali.dc.asistencias_uat.Models.Salones salon : salones) {
+                    String valor = salon.getNombre();
+                    valores.add(valor);
+                }
+
+                ArrayList<Salones> myList = new ArrayList<Salones>(salones);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                        com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
+                        valores);
+                Log.d("ArrayAdapter = >", valores.toString());
+                listSalones.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(String errorMessage, int erroCode) {
+
+            }
+        });
 
         /*btnEditSalon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,31 +137,9 @@ public class RegistrarAsistencia extends AppCompatDialogFragment {
             });
         }
 
-        salonesDB.getAll(new VolleyCallback<List<Salones>>() {
-            @Override
-            public void onSuccess(List<Salones> salones) {
-                ArrayList<String> valores = new ArrayList<String>();
-                for (com.ali.dc.asistencias_uat.Models.Salones salon : salones) {
-                    String valor = salon.getNombre();
-                    valores.add(valor);
-                }
 
-                ArrayList<Salones> myList = new ArrayList<Salones>(salones);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                        com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
-                        valores);
-                listSalones.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(String errorMessage, int erroCode) {
-
-            }
-        });
 
         return builder.create();
     }
-
-
 
 }
