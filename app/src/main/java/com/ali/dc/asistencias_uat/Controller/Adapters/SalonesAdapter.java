@@ -15,17 +15,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
-import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
-import com.ali.dc.asistencias_uat.DataBase.DocentesDB;
 import com.ali.dc.asistencias_uat.DataBase.SalonesDB;
-import com.ali.dc.asistencias_uat.Models.Alumnos;
-import com.ali.dc.asistencias_uat.Models.Docentes;
 import com.ali.dc.asistencias_uat.Models.Salones;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarAlumno;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarDocente;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarSalon;
+import com.ali.dc.asistencias_uat.Controller.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.Dialogs.EditarSalon;
 
 import java.util.List;
 

@@ -10,9 +10,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
 import com.ali.dc.asistencias_uat.Controller.Callbacks.FirebaseGetUserCallback;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.UI.Views.Screens.Inicio;
-import com.ali.dc.asistencias_uat.UI.Views.Screens.Login;
-import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.Screens.Inicio;
+import com.ali.dc.asistencias_uat.Views.Screens.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -131,7 +130,7 @@ public class Firebase {
                 });
     }
 
-    public static void resetPassword(String oldPassword, String newPassword, BooleanCallback callback) {
+    public static void changePassword(String oldPassword, String newPassword, BooleanCallback callback) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         AuthCredential authentication = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
         user.reauthenticate(authentication)
@@ -151,6 +150,21 @@ public class Firebase {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         callback.onResponse(false, "Contraseña actual incorrecta.");
+                    }
+                });
+    }
+
+    public static void resetPassword(String mail, BooleanCallback callback){
+
+        firebaseAuth.sendPasswordResetEmail(mail)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            callback.onResponse(true, "");
+                        } else {
+                            callback.onResponse(false, "");
+                        }
                     }
                 });
     }

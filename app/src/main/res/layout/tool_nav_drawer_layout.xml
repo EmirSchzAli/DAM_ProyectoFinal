@@ -6,7 +6,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Views.Screens.Inicio"
+    tools:context=".Views.Screens.Inicio"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -22,6 +22,6 @@
         android:layout_gravity="start"
         android:colorControlHighlight="@android:color/transparent"
         app:headerLayout="@layout/tool_nav_header"
-        app:menu="@menu/menu_admin"/>
+        app:menu="@menu/menu_check"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -32,7 +32,6 @@ import java.util.List;
 public class SalonesDB implements DAO_Salones {
 
     Context context;
-
     public SalonesDB(Context context){
         this.context = context;
     }

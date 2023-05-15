@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="outline_door_front" />
-                            <entry key="sourceFile" value="C:\Users\EMIR\Downloads\undraw_page_not_found_re_e9o6.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="logos_uat_solo_24" />
+                            <entry key="sourceFile" value="C:\Users\EMIR\Desktop\Logos UAT solo.svg" />
                           </map>
                         </option>
                       </PersistentState>

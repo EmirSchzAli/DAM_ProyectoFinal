@@ -17,20 +17,20 @@
         android:theme="@style/Theme.DAM_ProyectoFinal"
         tools:targetApi="31">
         <activity
-            android:name=".UI.Views.Screens.Ajustes"
+            android:name=".Views.Screens.Ajustes"
             android:exported="false" />
         <activity
-            android:name=".UI.Views.Screens.Inicio"
+            android:name=".Views.Screens.Inicio"
             android:exported="false" />
         <activity
-            android:name=".UI.Views.Screens.Registrar"
+            android:name=".Views.Screens.Registrar"
             android:exported="false"
-            android:parentActivityName=".UI.Views.Screens.Login" />
+            android:parentActivityName=".Views.Screens.Login" />
         <activity
-            android:name=".UI.Views.Screens.Login"
+            android:name=".Views.Screens.Login"
             android:exported="false" />
         <activity
-            android:name=".UI.Views.Screens.MainActivity"
+            android:name=".Views.Screens.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.DAM_ProyectoFinal">
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Utilities.CaptureActivityPortraint"
+            android:name=".Controller.CaptureActivityPortraint"
             android:screenOrientation="fullSensor"
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>

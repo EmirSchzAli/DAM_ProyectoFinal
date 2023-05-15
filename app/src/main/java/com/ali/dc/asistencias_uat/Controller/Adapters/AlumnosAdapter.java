@@ -9,22 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.ali.dc.asistencias_uat.Controller.Callbacks.BooleanCallback;
-import com.ali.dc.asistencias_uat.DataBase.AdministradoresDB;
 import com.ali.dc.asistencias_uat.DataBase.AlumnosDB;
 import com.ali.dc.asistencias_uat.Models.Alumnos;
 import com.ali.dc.asistencias_uat.R;
-import com.ali.dc.asistencias_uat.UI.Utilities.MetodosVistas;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.AgregarAlumno;
-import com.ali.dc.asistencias_uat.UI.Views.Dialogs.EditarAlumno;
+import com.ali.dc.asistencias_uat.Controller.MetodosVistas;
+import com.ali.dc.asistencias_uat.Views.Dialogs.EditarAlumno;
 
 import java.util.List;
 

@@ -5,55 +5,53 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:overScrollMode="never"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:text="Ingresa los siguientes datos del salón de clase:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etNombreSalonLyt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="30dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="50"
-            android:hint="Nombre o número del salón"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_door_front">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNombreSalon"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="50"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="15dp"
+                android:text="Ingresa los siguientes datos del salón de clase:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
-            android:id="@+id/tvWrongMessageSalon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:textAlignment="center"
-            android:textColor="?attr/colorError"
-            android:visibility="gone" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etNombreSalonLyt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                android:hint="Nombre o número del salón"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/outline_door_front">
 
-        <Button
-            android:id="@+id/btnAddSalon"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Agregar salón" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNombreSalon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="50"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvWrongMessageSalon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAlignment="center"
+                android:textColor="?attr/colorError"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

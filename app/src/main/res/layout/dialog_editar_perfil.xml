@@ -5,56 +5,64 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:overScrollMode="never"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:text="Edita tus datos:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etMatriculaLyt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:hint="Matricula"
-            android:transitionName="emailInputTransition"
-            app:counterEnabled="true"
-            app:counterMaxLength="10"
-            app:errorEnabled="true"
-            app:helperText="Ingrese su matricula de empleado"
-            app:startIconDrawable="@drawable/outline_contact">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMatricula"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="10" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="15dp"
+                android:text="Edita tus datos:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etUserNameLyt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Nombre y Apellido"
-            android:transitionName="emailInputTransition"
-            app:errorEnabled="true"
-            app:helperText="@string/userName_suggestions"
-            app:startIconDrawable="@drawable/outline_person">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUserName"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etMatriculaLyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginBottom="30dp"
+                android:hint="Matricula"
+                android:transitionName="emailInputTransition"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:errorEnabled="true"
+                app:helperText="Ingrese su matricula de empleado"
+                app:startIconDrawable="@drawable/outline_contact">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMatricula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etUserNameLyt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nombre y Apellido"
+                android:transitionName="emailInputTransition"
+                app:errorEnabled="true"
+                app:helperText="@string/userName_suggestions"
+                app:startIconDrawable="@drawable/outline_person">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

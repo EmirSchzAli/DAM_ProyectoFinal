@@ -5,75 +5,73 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:overScrollMode="never"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:text="Edita los datos del docente:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etNumeroEmpleadoLyt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:hint="Número de empleado"
-            android:transitionName="emailInputTransition"
-            app:counterEnabled="true"
-            app:counterMaxLength="10"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_contact">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNumeroEpleado"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="10" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="15dp"
+                android:text="Edita los datos del docente:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etNameDocenteLyt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="50"
-            android:hint="Nombre del alumno(a)"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_person">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNameDocente"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etNumeroEmpleadoLyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="50"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="5dp"
+                android:hint="Número de empleado"
+                android:transitionName="emailInputTransition"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/outline_contact">
 
-        <TextView
-            android:id="@+id/tvWrongMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:textAlignment="center"
-            android:textColor="?attr/colorError"
-            android:visibility="gone" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNumeroEpleado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnEditDocente"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Editar docente" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etNameDocenteLyt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                android:hint="Nombre del alumno(a)"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/outline_person">
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNameDocente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="50"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvWrongMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAlignment="center"
+                android:textColor="?attr/colorError"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
