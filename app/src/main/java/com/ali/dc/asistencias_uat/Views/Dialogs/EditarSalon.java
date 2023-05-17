@@ -107,7 +107,7 @@ public class EditarSalon extends AppCompatDialogFragment {
             salonesDB.update(salonReq, new VolleyCallback<Salones>() {
                 @Override
                 public void onSuccess(Salones salones) {
-                    MetodosVistas.snackBar(getActivity(), "Docente actualizado con exito.");
+                    MetodosVistas.snackBar(getActivity(), "Salón actualizado con exito.");
                     dismiss();
                 }
 

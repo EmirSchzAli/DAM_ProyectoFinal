@@ -1,6 +1,7 @@
 package com.ali.dc.asistencias_uat.Views.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,8 @@ import com.ali.dc.asistencias_uat.R;
 import com.ali.dc.asistencias_uat.Controller.MetodosVistas;
 import com.ali.dc.asistencias_uat.Views.Screens.Inicio;
 import com.ali.dc.asistencias_uat.Utilities.Constantes;
+import com.ali.dc.asistencias_uat.Views.Screens.Login;
+import com.ali.dc.asistencias_uat.Views.Screens.Registrar;
 
 import java.util.List;
 
@@ -38,7 +41,14 @@ public class Administradores extends Fragment {
         Inicio.toolbar.setTitle("Administradores");
         setHasOptionsMenu(true);
 
-        Inicio.fabHome.setVisibility(View.GONE);
+        Inicio.fabHome.setVisibility(View.VISIBLE);
+        Inicio.fabHome.setImageResource(R.drawable.outline_add);
+        Inicio.fabHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAdmin();
+            }
+        });
 
         adminsRecyclerView = view.findViewById(R.id.adminsRecyclerView);
         adminsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -57,6 +67,14 @@ public class Administradores extends Fragment {
         });
 
         return view;
+    }
+
+    private void addAdmin() {
+        Intent intent = new Intent(getContext(), Registrar.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
